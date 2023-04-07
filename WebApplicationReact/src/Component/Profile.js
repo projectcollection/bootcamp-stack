@@ -672,7 +672,7 @@ function Profile() {
                                     <table className="table">
                                       <thead>
                                         <tr>
-                                          {profile.userProfile.length > 0 ? (
+                                          {profile?.userProfile?.length > 0 ? (
                                             Object.keys(
                                               profile.userProfile[0]
                                                 .education[0]
@@ -686,7 +686,7 @@ function Profile() {
                                       </thead>
                                       <tbody>
                                         <tr>
-                                          {profile.userProfile.length > 0 ? (
+                                          {profile?.userProfile?.length > 0 ? (
                                             Object.values(
                                               profile.userProfile[0]
                                                 .education[0]
@@ -709,7 +709,7 @@ function Profile() {
                                     <table class="table">
                                       <thead>
                                         <tr>
-                                          {profile.userProfile.length > 0 ? (
+                                          {profile?.userProfile?.length > 0 ? (
                                             Object.keys(
                                               profile.userProfile[0]
                                                 .experience[0]
@@ -723,7 +723,7 @@ function Profile() {
                                       </thead>
                                       <tbody>
                                         <tr>
-                                          {profile.userProfile.length > 0 ? (
+                                          {/* {profile?.userProfile?.length > 0 ? (
                                             Object.values(
                                               profile.userProfile[0]
                                                 .experience[0]
@@ -732,7 +732,7 @@ function Profile() {
                                             })
                                           ) : (
                                             <>No Data Avaliable</>
-                                          )}
+                                          )} */}
                                         </tr>
                                       </tbody>
                                     </table>
@@ -744,7 +744,7 @@ function Profile() {
                                     <table class="table">
                                       <thead>
                                         <tr>
-                                          {profile.userProfile.length > 0 ? (
+                                          {/* {profile?.userProfile?.length > 0 ? (
                                             Object.keys(
                                               profile.userProfile[0].skills[0]
                                             ).map((key, index) => {
@@ -752,12 +752,12 @@ function Profile() {
                                             })
                                           ) : (
                                             <>No Data Avaliable</>
-                                          )}
+                                          )} */}
                                         </tr>
                                       </thead>
                                       <tbody>
                                         <tr>
-                                          {profile.userProfile.length > 0 ? (
+                                          {/* {profile?.userProfile?.length > 0 ? (
                                             Object.values(
                                               profile.userProfile[0].skills[0]
                                             ).map((values, index) => {
@@ -765,7 +765,7 @@ function Profile() {
                                             })
                                           ) : (
                                             <>No Data Avaliable</>
-                                          )}
+                                          )} */}
                                         </tr>
                                       </tbody>
                                     </table>
@@ -777,7 +777,7 @@ function Profile() {
                                     <table class="table">
                                       <thead>
                                         <tr>
-                                          {profile.userProfile.length > 0 ? (
+                                          {/* {profile?.userProfile?.length > 0 ? (
                                             Object.keys(
                                               profile.userProfile[0].projects[0]
                                             ).map((key, index) => {
@@ -785,12 +785,12 @@ function Profile() {
                                             })
                                           ) : (
                                             <>No Data Avaliable</>
-                                          )}
+                                          )} */}
                                         </tr>
                                       </thead>
                                       <tbody>
                                         <tr>
-                                          {profile.userProfile.length > 0 ? (
+                                          {/* {profile?.userProfile?.length > 0 ? (
                                             Object.values(
                                               profile.userProfile[0].projects[0]
                                             ).map((values, index) => {
@@ -798,7 +798,7 @@ function Profile() {
                                             })
                                           ) : (
                                             <>No Data Avaliable</>
-                                          )}
+                                          )} */}
                                         </tr>
                                       </tbody>
                                     </table>

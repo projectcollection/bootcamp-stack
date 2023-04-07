@@ -1,6 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import Chat from "./chat/Chat"
 import './index.css';
+import recoilPersist from "recoil-persist";
+import { RecoilRoot } from "recoil";
 import { createBrowserRouter, RouterProvider, Route, Link } from "react-router-dom"
 import { Bootcamps } from './pages/Bootcamps';
 import { Home } from "./pages/HomePage";
@@ -11,8 +14,11 @@ import ProfilePage  from "./pages/ProfilePage"
 import AuthServices from "./Services/AuthServices";
 import Dashboard from "./pages/Dashboard";
 
-
-
+export const AppContext = React.createContext();
+const { RecoilPersist, updateState } = recoilPersist([], {
+  key: "recoil-persist",
+  storage: sessionStorage,
+});
 const router = createBrowserRouter([
 
   {
@@ -72,11 +78,21 @@ const router = createBrowserRouter([
           <Link to="/login"></Link>
         </>
     )
+  },
+
+  {
+    
+    path: "/chat",
+    element: (
+        <>          
+          <Chat ></Chat>     
+          <Link to="/chat"></Link>
+        </>
+    )
   }
-  ,
 
-  
-
+  // <Route exact path="/chat" render={(props) => <Chat {...props} />} />
+,  
   {
     path: "/dashboard",
     element: (
@@ -99,8 +115,12 @@ const router = createBrowserRouter([
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <RouterProvider router={router}></RouterProvider>
-    {/* <FetchData></FetchData> */}
-  </React.StrictMode>
+
+  <RecoilRoot initializeState={updateState}>
+    <RecoilPersist />  
+    <React.StrictMode>
+      <RouterProvider router={router}></RouterProvider>
+      {/* <FetchData></FetchData> */}
+    </React.StrictMode>
+  </RecoilRoot>,
 );
