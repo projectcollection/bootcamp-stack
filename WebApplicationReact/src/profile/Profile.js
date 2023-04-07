@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import { Modal } from "react-bootstrap"
 import HeaderBar from "../Component/DashNav/HeaderBar";
 import SideNavBar from "../Component/DashNav/Sidebar";
-import { Footer } from "../Component/Footer"
+import Footer from "../molecules/Footer"
 import { NavBar } from "../Component/Nav"
-import {Profile} from "../Component/Profile"
+import { Profile } from "../Component/Profile"
 import { Registor } from "../Component/Registration";
 import LoadingSpinner from "../Component/Spinner";
+import TopMenu from "../molecules/TopMenu";
+import Sidebar from "../molecules/Sidebar";
 
 
 const ProfilePage = (props) => {
@@ -41,32 +43,15 @@ const ProfilePage = (props) => {
     if (!menuItems) return <div> <LoadingSpinner></LoadingSpinner> </div>
     return (
         <>
-            <div> 
-            <HeaderBar>
-                    <span></span>
-            </HeaderBar>            
-            <SideNavBar></SideNavBar>
-            </div>
-            <div>
-           
-                <Profile className="profileBody"></Profile>
-
-            </div>
-            <div>
-                <Footer></Footer>
-            </div>
-            <Modal
-                show={show}
-                onHide={handleClose}
-                backdrop="static"
-                keyboard={false}
-            >
-                <Modal.Header closeButton>
-                </Modal.Header>
-                <Modal.Body>
-                    <Registor handleClose={handleClose}></Registor>
-                </Modal.Body>
-            </Modal>
+            <Fragment>
+            <TopMenu></TopMenu>
+            </Fragment>
+            <Sidebar></Sidebar>
+            <Profile className="profileBody"></Profile>\
+            <Fragment>
+            <Footer></Footer>
+            </Fragment>
+            
         </>
     )
 

@@ -2,6 +2,7 @@ import { MDBBtn, MDBCard, MDBCardBody } from "mdb-react-ui-kit";
 import { useState } from "react";
 import Accordion from "react-bootstrap/Accordion";
 import AuthServices from "../Services/AuthServices";
+
 import { baseurl } from "../include/Urlinclude";
 import axios from "axios";
 
@@ -12,9 +13,6 @@ function UserProfileItemsTable(props) {
   const [skills, setSkills] = useState(null);
   const [projects, setProjects] = useState(null);
   const [edit, setEdit] = useState(false);
-
-  // console.log("checking userProfile: ", props.userProfile);
-
   const updateUserProfile = (event) => {
     event.preventDefault();
     setEdit(false);

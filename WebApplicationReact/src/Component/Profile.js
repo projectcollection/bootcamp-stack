@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { NavBar } from "../Component/Nav";
 import { Footer } from "../Component/Footer";
@@ -27,9 +28,7 @@ import {
 } from "mdb-react-ui-kit";
 import Accordion from "react-bootstrap/Accordion";
 import { baseurl } from "../include/Urlinclude";
-import UserProfileItemsTable from "./UserProfileItem";
-
-// import AxiosClient from "../Services/AxiosClient";
+import UserProfileItemsTable from "../profile/UserProfileItem";
 
 function Profile() {
   const [edit, setEdit] = useState(false);
@@ -40,7 +39,7 @@ function Profile() {
   useEffect(() => {
     let token = "";
     let localUser = AuthServices.getCurrentUser(); //localStorage.getItem("user")
-     console.log("localUser: ", localUser);
+    console.log("localUser: ", localUser);
     try {
       // get token
       token = JSON.parse(localUser).response;
@@ -58,7 +57,7 @@ function Profile() {
         "Content-Type": "application/json",
       },
       data: {}
-   
+
     };
 
     axios

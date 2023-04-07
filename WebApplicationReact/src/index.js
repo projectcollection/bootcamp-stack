@@ -10,9 +10,12 @@ import { Home } from "./pages/HomePage";
 import BootcampDetails from "./pages/BootcampDetail";
 import { SignUpAndSigninPage } from "./pages/RegistrationPage";
 import { FetchData } from "./pages/FetchData";
-import ProfilePage  from "./pages/ProfilePage"
+
 import AuthServices from "./Services/AuthServices";
-import Dashboard from "./pages/Dashboard";
+// import Dashboard from "./pages/Dashboard";
+import DashboardPageN from "./pages/dashboard/Dashboard";
+
+import ProfilePage from "./profile/Profile";
 
 export const AppContext = React.createContext();
 const { RecoilPersist, updateState } = recoilPersist([], {
@@ -97,7 +100,7 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: (
         <>
-          <Dashboard profile={AuthServices.getCurrentUser()}></Dashboard>
+          <DashboardPageN profile={AuthServices.getCurrentUser()}></DashboardPageN>
           <Link to="/dashboard"></Link>
         </>
     )
