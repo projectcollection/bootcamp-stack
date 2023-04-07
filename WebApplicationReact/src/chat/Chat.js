@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Button, message } from "antd"; // UI Library -- BootSTrap
 import {
   getUsers,
@@ -14,6 +14,9 @@ import {
 } from "../atom/globalState";
 import ScrollToBottom from "react-scroll-to-bottom";
 import "./Chat.css";
+import TopMenu from "../molecules/TopMenu";
+import Sidebar from "../molecules/Sidebar";
+import Footer from "../molecules/Footer";
 
 var stompClient = null;
 const Chat = (props) => {
@@ -122,7 +125,12 @@ const Chat = (props) => {
   };
 
   return (
-    <div id="frame">
+<>
+    <Fragment>
+    <TopMenu></TopMenu>
+    </Fragment>
+   
+    <div  id="frame">
       <div id="sidepanel">
         <div id="profile">
           <div class="wrap">
@@ -235,6 +243,8 @@ const Chat = (props) => {
         </div>
       </div>
     </div>
+   
+    </>
   );
 };
 
