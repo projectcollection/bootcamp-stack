@@ -13,11 +13,13 @@ import { FetchData } from "./pages/FetchData";
 
 import AuthServices from "./Services/AuthServices";
 // import Dashboard from "./pages/Dashboard";
-import DashboardPageN from "./pages/dashboard/Dashboard";
+import Dashboard from "./dashboard/Dashboard";
 
 import ProfilePage from "./profile/Profile";
+import Signin from "./sinIn/Signin";
+import Ide from "./ide/Ide";
 
-export const AppContext = React.createContext();
+
 const { RecoilPersist, updateState } = recoilPersist([], {
   key: "recoil-persist",
   storage: sessionStorage,
@@ -39,6 +41,25 @@ const router = createBrowserRouter([
     element: (
         <>
           <Home></Home>
+          <Link to="/"></Link>
+        </>
+    )
+  },
+
+  {
+    path: "/ide",
+    element: (
+        <>
+          <Ide></Ide>
+          <Link to="/"></Link>
+        </>
+    )
+  },
+  {
+    path: "/signin",
+    element: (
+        <>
+          <Signin></Signin>
           <Link to="/"></Link>
         </>
     )
@@ -100,7 +121,7 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: (
         <>
-          <DashboardPageN profile={AuthServices.getCurrentUser()}></DashboardPageN>
+          <Dashboard profile={AuthServices.getCurrentUser()}></Dashboard>
           <Link to="/dashboard"></Link>
         </>
     )

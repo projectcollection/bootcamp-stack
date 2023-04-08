@@ -1,4 +1,9 @@
-import { Footer } from "../Component/Footer";
+import React from "react";
+import { useRecoilState } from "recoil";
+import { loggedInUser } from "../atom/globalState";
+import { LogoutOutlined } from "@ant-design/icons";
+import { getCurrentUser } from "../Utils/ApiUtil";
+import Footer from "../molecules/Footer";
 import { HeadSection } from "../Component/HeadSection";
 import { NavBar } from "../Component/Nav";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -16,8 +21,14 @@ import { Modal} from 'react-bootstrap';
 import { Registor } from "../Component/Registration";
 import '../style/bootcampstyles.css';
 import AuthServices from "../Services/AuthServices";
+import { redirect, useNavigate } from "react-router-dom";
 
+export const AppContext = React.createContext();
 export const Home = (props) => {
+   
+
+
+   ///// End Recoil 
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);

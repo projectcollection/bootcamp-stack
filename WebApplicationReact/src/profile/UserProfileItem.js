@@ -7,6 +7,7 @@ import { baseurl } from "../include/Urlinclude";
 import axios from "axios";
 
 function UserProfileItemsTable(props) {
+  
   const [userProfile, setUserProfile] = useState(props.userProfile);
   const [education, setEducation] = useState(null);
   const [experience, setExperience] = useState(null);

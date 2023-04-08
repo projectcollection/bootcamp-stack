@@ -9,17 +9,37 @@ import { Registor } from "../Component/Registration";
 import LoadingSpinner from "../Component/Spinner";
 import TopMenu from "../molecules/TopMenu";
 import Sidebar from "../molecules/Sidebar";
+import { loggedInUser } from "../atom/globalState";
+import { useRecoilState } from "recoil";
+import { getCurrentUser } from "../Utils/ApiUtil";
 
 
 const ProfilePage = (props) => {
 
-
+    const [currentUser, setLoggedInUser] = useRecoilState(loggedInUser);
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
 
     console.log(user);
+
+    const loadCurrentUser = () => {
+        getCurrentUser()
+          .then((response) => {
+            setLoggedInUser(response);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      };
+
+      const logout = () => {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("user");
+        props.history.push("/login");
+      };
+    
 
     const menuItems = [
         { text: "Home", href: "/" },
@@ -47,7 +67,7 @@ const ProfilePage = (props) => {
             <TopMenu></TopMenu>
             </Fragment>
             <Sidebar></Sidebar>
-            <Profile className="profileBody"></Profile>\
+            <Profile className="profileBody"></Profile>
             <Fragment>
             <Footer></Footer>
             </Fragment>

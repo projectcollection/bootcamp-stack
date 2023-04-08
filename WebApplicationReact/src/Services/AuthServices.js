@@ -28,8 +28,10 @@ class AuthService
           .then(response => response.json())
           .then(result => {
             localStorage.removeItem("user");
+            localStorage.removeItem("accessToken");
             console.log("Old User Removed, Inside The Response before saving"+result);
             localStorage.setItem("user", JSON.stringify(result)); 
+            localStorage.setItem("accessToken", result.response); 
             console.log("New User added, Inside The Response after saving"+ result);   
             return result;
         }) 
