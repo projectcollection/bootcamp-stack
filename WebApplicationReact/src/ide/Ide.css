@@ -9,8 +9,11 @@
     height: 30px;
 }
 .parent iframe {
-    margin: 100px;
+    margin-top: 100px;
     background: #000;
     border: none;
     flex-grow: 1;
+   
 }
+
+  

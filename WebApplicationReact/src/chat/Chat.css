@@ -9,6 +9,16 @@
   margin-top: 86px;  
 
 }
+
+.page{
+  min-height: 1024px;
+  height: 1024px;
+  margin-top: 150px;
+  margin-left: 200px;
+
+}
+
+
 @media screen and (max-width: 360px) {
   #frame {
     width: 100%;

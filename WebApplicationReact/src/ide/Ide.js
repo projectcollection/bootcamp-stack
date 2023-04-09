@@ -50,7 +50,7 @@ const Ide = (props) => {
             <TopMenu></TopMenu>
             </Fragment>
             <Sidebar></Sidebar>
-            <div>
+            <div >
               <iframe id="myFrame" style={{marginTop:"88px", marginLeft:"85px"}}
               width="100%"  height="700px"
               frameBorder="0"

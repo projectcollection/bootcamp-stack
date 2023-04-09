@@ -137,7 +137,7 @@ const Chat = (props) => {
     </Fragment>
     <SidebarAH></SidebarAH>
    <Fragment>
-    <div  id="frame">
+    <div  id="frame" className="page">
       <div id="sidepanel">
         <div id="profile">
           <div className="wrap">

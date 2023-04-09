@@ -10,13 +10,13 @@ import { Home } from "./pages/HomePage";
 import BootcampDetails from "./pages/BootcampDetail";
 import { SignUpAndSigninPage } from "./pages/RegistrationPage";
 import { FetchData } from "./pages/FetchData";
-
+import MyBootcamps from "./bootcamps/Bootcamps"
 import AuthServices from "./Services/AuthServices";
 // import Dashboard from "./pages/Dashboard";
 import Dashboard from "./dashboard/Dashboard";
 
 import ProfilePage from "./profile/Profile";
-import Signin from "./sinIn/Signin";
+
 import Ide from "./ide/Ide";
 
 
@@ -55,12 +55,13 @@ const router = createBrowserRouter([
         </>
     )
   },
+  
   {
-    path: "/signin",
+    path: "/my-bcamps",
     element: (
         <>
-          <Signin></Signin>
-          <Link to="/"></Link>
+          <MyBootcamps></MyBootcamps>
+          <Link to="/bootcamps"></Link>
         </>
     )
   },
@@ -103,7 +104,7 @@ const router = createBrowserRouter([
         </>
     )
   },
-
+  
   {
     
     path: "/chat",
@@ -113,6 +114,7 @@ const router = createBrowserRouter([
           <Link to="/chat"></Link>
         </>
     )
+    
   }
 
   // <Route exact path="/chat" render={(props) => <Chat {...props} />} />

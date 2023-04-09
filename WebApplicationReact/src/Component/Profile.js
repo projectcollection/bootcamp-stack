@@ -29,6 +29,7 @@ import {
 import Accordion from "react-bootstrap/Accordion";
 import { baseurl } from "../include/Urlinclude";
 import UserProfileItemsTable from "../profile/UserProfileItem";
+import LoadingSpinner from "./Spinner";
 
 function Profile() {
   const [edit, setEdit] = useState(false);
@@ -140,7 +141,7 @@ function Profile() {
 
   return (
     <>
-      <section className="profileBody" style={{ backgroundColor: "#eee" }}>
+      <section className="profileBody" >
         <MDBContainer className="py-5">
           <MDBRow>
             <MDBCol>
@@ -813,7 +814,7 @@ function Profile() {
                   </MDBRow>
                 </>
               ) : (
-                <>No Profile Show</>
+                <>Loading....... <LoadingSpinner></LoadingSpinner></>
               )}
             </>
           )}

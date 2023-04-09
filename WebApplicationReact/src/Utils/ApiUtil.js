@@ -39,6 +39,15 @@ export function login(loginRequest) {
   });
 }
 
+
+export function findBootcamps(loginRequest) {
+  // url: AUTH_SERVICE + "/signin",
+  return request({
+    url: AUTH_SERVICE + "/api/v1/bootcamp/getbootcampbyuser",
+    method: "POST",
+    body: JSON.stringify(loginRequest),
+  });
+}
 export function facebookLogin(facebookLoginRequest) {
   return request({
     url: AUTH_SERVICE + "/facebook/signin",

@@ -35,7 +35,7 @@ const SidebarAH = (props) => {
           <ul className="list-unstyled components">
             <li className="list-item">
               <i className="fas fa-briefcase icon-color"></i>
-              <Link to="/members">Members</Link>
+              <Link to="/my-bcamps">My Bootcamps</Link>
             </li>
             <li className="list-item">
               <i className="fas fa-building icon-color"></i>
