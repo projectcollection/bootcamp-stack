@@ -20,8 +20,26 @@ public class ChatMessage {
    private String senderId;
    private String recipientId;
    private String senderName;
+
+   @Override
+   public String toString() {
+      return "ChatMessage{" +
+              "id='" + id + '\'' +
+              ", chatId='" + chatId + '\'' +
+              ", senderId='" + senderId + '\'' +
+              ", recipientId='" + recipientId + '\'' +
+              ", senderName='" + senderName + '\'' +
+              ", recipientName='" + recipientName + '\'' +
+              ", content='" + content + '\'' +
+              ", timestamp=" + timestamp +
+              ", status=" + status +
+              '}';
+   }
+
    private String recipientName;
    private String content;
    private Date timestamp;
    private MessageStatus status;
+
+
 }

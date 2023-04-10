@@ -1,3 +1,6 @@
+# server.por
+server:
+  port: 8081
 spring:
   data:
     mongodb:
