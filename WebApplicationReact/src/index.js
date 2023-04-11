@@ -18,6 +18,7 @@ import Dashboard from "./dashboard/Dashboard";
 import ProfilePage from "./profile/Profile";
 
 import Ide from "./ide/Ide";
+import BootcampDetailsC from "./bootcamps/BootcampsDetailsC";
 
 
 const { RecoilPersist, updateState } = recoilPersist([], {
@@ -26,16 +27,16 @@ const { RecoilPersist, updateState } = recoilPersist([], {
 });
 const router = createBrowserRouter([
 
-  {
-    path: "/bootcamps/:bootcampId",
-    element: (
-        <>
-         console.log("bootcampId",bootcampId);
-          <BootcampDetails ></BootcampDetails>
-          <Link to="/bootcamps/:bootcampId"></Link>
-        </>
-    )
-  },
+  // {
+  //   path: "/bootcamps/:bootcampId",
+  //   element: (
+  //       <>
+  //        console.log("bootcampId",bootcampId);
+  //         <BootcampDetails ></BootcampDetails>
+  //         <Link to="/bootcamps/:bootcampId"></Link>
+  //       </>
+  //   )
+  // },
   {
     path: "/",
     element: (
@@ -61,7 +62,7 @@ const router = createBrowserRouter([
     element: (
         <>
           <MyBootcamps></MyBootcamps>
-          <Link to="/bootcamps"></Link>
+          
         </>
     )
   },
@@ -105,6 +106,17 @@ const router = createBrowserRouter([
     )
   },
   
+  {
+    
+    path: "/bootcamps/:id",
+    element: (
+        <>          
+          <BootcampDetailsC ></BootcampDetailsC>               
+        </>
+    )
+    
+  }
+,
   {
     
     path: "/chat",

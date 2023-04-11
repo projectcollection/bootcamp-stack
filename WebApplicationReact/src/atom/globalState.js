@@ -8,6 +8,15 @@ export const loggedInUser = atom({
   },
 });
 
+
+export const loggedInUserBootcamps = atom({
+  key: "loggedInUserBootcamps",
+  default: {},
+  persistence_UNSTABLE: {
+    type: "loggedInUserBootcamps",
+  },
+});
+
 export const chatActiveContact = atom({
   key: "chatActiveContact",
   persistence_UNSTABLE: {

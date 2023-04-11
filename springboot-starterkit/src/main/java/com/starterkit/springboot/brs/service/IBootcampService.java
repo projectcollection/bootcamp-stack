@@ -14,7 +14,7 @@ public interface IBootcampService {
     List<BootcampDto> getAllBootcamps();
     BootcampDto getById(String id);
     List<BootcampDto> getByName(String name);
-    List<BootcampDto> getAllBootcampsByUser(String email);
+    List<BootcampDto> getAllBootcampsByUser(String id);
     boolean createBootcamp(BootcampDto bootcamp);
     boolean updateBootcamp(BootcampDto bootcampDto);
     boolean deleteBootcamp(String id);

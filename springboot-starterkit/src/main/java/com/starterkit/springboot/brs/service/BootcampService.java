@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.starterkit.springboot.brs.exception.EntityType.BOOTCAMP;
 import static com.starterkit.springboot.brs.exception.ExceptionType.ENTITY_NOT_FOUND;
@@ -74,8 +75,9 @@ public class BootcampService implements  IBootcampService {
     }
 
     @Override
-    public List<BootcampDto> getAllBootcampsByUser(String email) {
-        return null;
+    public List<BootcampDto> getAllBootcampsByUser(String id) {
+        return  BootcampMapper.toBootcampDtoList(  bootcampRepository.findAll().stream().filter(x->x.getUsers().stream().anyMatch(y->y.getId().equals(id))).collect(Collectors.toList()));
+        //return BootcampMapper.toBootcampDtoList( bootcampRepository.findByUserId(id));
     }
 
     @Override

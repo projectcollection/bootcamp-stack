@@ -13,9 +13,10 @@ import {
   loggedInUser,
   chatActiveContact,
   chatMessages,
+  loggedInUserBootcamps
 } from "../atom/globalState";
 import ScrollToBottom from "react-scroll-to-bottom";
-
+import { Link, useParams } from 'react-router-dom';
 import TopMenu from "../molecules/TopMenu";
 import Sidebar from "../molecules/Sidebar";
 import Footer from "../molecules/Footer";
@@ -24,7 +25,10 @@ import LoadingSpinner from "../Component/Spinner";
 import "./Bootcamps.css"
 import { Col, Row } from "react-bootstrap";
 const MyBootcamps = (props) => {
+ const id=useParams();
   const currentUser = useRecoilValue(loggedInUser);
+
+  const [_, setBootcampsState] = useRecoilState(loggedInUserBootcamps);
   const [bootcamps, setBootcamps] = useState(null)
   useEffect(() => {
     if (localStorage.getItem("accessToken") === null) {
@@ -34,9 +38,13 @@ const MyBootcamps = (props) => {
 
   useEffect(() => {
     if (currentUser === undefined) return;
-    findBootcamps({ id: currentUser.id }).then((bootcamps) =>
+    findBootcamps({ id: currentUser.id }).then((bootcamps) =>{
       setBootcamps(bootcamps)
+      setBootcampsState(bootcamps)
+    }
+      
     );
+   
   }, []);
   console.log("THE CURRENT USER" + JSON.stringify(currentUser))
   // if (!bootcamps) return <div> <LoadingSpinner></LoadingSpinner> </div>
@@ -60,7 +68,7 @@ const MyBootcamps = (props) => {
             <h3>Welcome {currentUser.firstName} you are working in below bootcamps</h3>
             <Row>
               {bootcamps.map(item => {
-                return (<Col> <BootcampItem item={item}></BootcampItem></Col>)
+                return (<Col> <BootcampItem item={item} id={id}></BootcampItem></Col>)
               })}
             </Row>
 
@@ -86,7 +94,8 @@ function BootcampItem(props) {
         <div dangerouslySetInnerHTML={{ __html:  props.item.longHtml }} />
         
         </Card.Text>
-        <Card.Link href="#">Get Into Bootcamp</Card.Link>
+        
+        <Link to={ `/bootcamps/${props.item.id}`}>B Camp</Link>
         
       </Card.Body>
     </Card>

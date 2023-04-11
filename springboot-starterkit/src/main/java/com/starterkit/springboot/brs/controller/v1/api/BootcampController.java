@@ -55,14 +55,14 @@ public class BootcampController {
 
     @RequestMapping(value ="/getbootcampbyid", method = RequestMethod.POST)
     @ApiOperation(value = "", authorizations = {@Authorization(value = "apiKey")})
+    public ResponseEntity<?> getBootcampByUserId(@RequestBody @Valid RequestMes requestMes) {
+        return ResponseEntity.ok(bootcampService.getAllBootcampsByUser(requestMes.id));
+    }
+
+    @RequestMapping(value ="/getbootcampbyuser", method = RequestMethod.POST)
+    @ApiOperation(value = "", authorizations = {@Authorization(value = "apiKey")})
     public ResponseEntity<?> getBootcampByIdn(@RequestBody @Valid RequestMes requestMes) {
-
-
-//        @ApiOperation(value = "", authorizations = {@Authorization(value = "apiKey")})
-//    public ResponseEntity getBootcampsById() {
- //       return ResponseEntity.ok(bootcampService.getById("6400e882eea6663cea2b9699"));
-
-        return ResponseEntity.ok(bootcampService.getById(requestMes.bootcampId));
+        return ResponseEntity.ok(bootcampService.getAllBootcampsByUser(requestMes.id));
     }
 
 
@@ -142,7 +142,7 @@ public class BootcampController {
     @JsonIgnoreProperties(ignoreUnknown = true)
     private static class RequestMes {
         @NotNull(message = "{constraints.NotEmpty.message}")
-        private String bootcampId;
+        private String id;
 //        @NotNull(message = "{constraints.NotEmpty.message}")
 //        private String password;
     }
