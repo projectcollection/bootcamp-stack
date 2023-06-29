@@ -19,6 +19,8 @@ import ProfilePage from "./profile/Profile";
 
 import Ide from "./ide/Ide";
 
+import TestSpinner from "./Component/Test";
+
 
 const { RecoilPersist, updateState } = recoilPersist([], {
   key: "recoil-persist",
@@ -36,6 +38,18 @@ const router = createBrowserRouter([
         </>
     )
   },
+
+  {
+    path: "/datanode",
+    element: (
+        <>         
+          <TestSpinner ></TestSpinner>
+          <Link to="/datanode"></Link>
+        </>
+    )
+  },
+
+  
   {
     path: "/",
     element: (
