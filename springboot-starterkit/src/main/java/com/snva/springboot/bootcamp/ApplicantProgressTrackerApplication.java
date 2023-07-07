@@ -35,14 +35,9 @@ public class ApplicantProgressTrackerApplication {
                            StopRepository stopRepository, AgencyRepository agencyRepository,
                            BusRepository busRepository, TripRepository tripRepository, SessionItemRepository sessionItemRepository,
                            TripScheduleRepository tripScheduleRepository) {
-
-
         return args -> {
-
-
             if (false) {
                 System.out.println("Bootcamp Creation  !!!!");
-
                 List<User> user = new ArrayList<>();
                 List<Technology> technologyList = technologyRepository.findByName("React Js");
                 Technology springboot = new Technology();

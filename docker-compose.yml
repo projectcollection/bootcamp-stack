@@ -6,6 +6,14 @@ services:
     restart: on-failure
     ports:
       - "8077:8077"
+  chatserver:
+    image: chat-server:latest
+    container_name: chat-server-container
+    restart: on-failure
+    depends_on:
+      - api
+    ports:
+      - "8081:8081"
   web: 
     image: bootcamp-frontend:latest
     container_name: bootcamp-frontend-container
@@ -14,5 +22,6 @@ services:
       - api
     ports:
       - "80:80"
+
 
   
