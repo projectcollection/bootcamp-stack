@@ -44,7 +44,6 @@ public class FormBasedJWTAuthenticationFilter extends UsernamePasswordAuthentica
                             new ArrayList<>())
             );
         }
-
         return null;
     }
 

@@ -5,6 +5,8 @@ import com.snva.springboot.bootcamp.controller.v1.command.AdminSignupFormCommand
 import com.snva.springboot.bootcamp.controller.v1.request.bootcamp.SessionRequest;
 import com.snva.springboot.bootcamp.controller.v1.request.bootcamp.TechnologyRequest;
 import com.snva.springboot.bootcamp.controller.v1.request.bootcamp.UpdateBootcampRequest;
+import com.snva.springboot.bootcamp.controller.v1.request.bootcamp.livecode.CompileRequest;
+import com.snva.springboot.bootcamp.controller.v1.request.bootcamp.livecode.CreateProblemStatementRequest;
 import com.snva.springboot.bootcamp.controller.v1.request.bootcamp.livecode.ProblemStatementRequest;
 import com.snva.springboot.bootcamp.dto.model.bootcamp.BootcampDto;
 import com.snva.springboot.bootcamp.dto.model.bootcamp.TechnologyDto;
@@ -32,10 +34,10 @@ import javax.validation.Valid;
 @RequestMapping("/api/v1/problemStatement")
 @CrossOrigin(maxAge = 36000, origins = "*" , allowedHeaders = "*")
 @Api(value = "bootcamp-application", description = "Operations pertaining to solving white boarded problems and compile them  on platform")
-
-
 public class ProblemStatementController {
-    private IProblemStatementService  problemStatementService;
+
+    @Autowired
+    private IProblemStatementService problemStatementService;
 
     @GetMapping("/allProblemStatements")
     @ApiOperation(value = "", authorizations = {@Authorization(value = "apiKey")})
@@ -45,19 +47,29 @@ public class ProblemStatementController {
 
     @GetMapping("/getProblemStatementById/{problemStatementId}")
     @ApiOperation(value = "", authorizations = {@Authorization(value = "apiKey")})
-    public ResponseEntity getProblemStatementById( @PathVariable String problemStatementId) {
+    public ResponseEntity getProblemStatementById(@PathVariable String problemStatementId) {
         return ResponseEntity.ok(problemStatementService.problemStatementById(problemStatementId));
     }
 
     @PostMapping("/addProblemStatement")
     @ApiOperation(value = "", authorizations = {@Authorization(value = "apiKey")})
-    public ResponseEntity addAllProblemStatements(@Valid ProblemStatementRequest problemStatementRequest) {
+    public ResponseEntity addAllProblemStatements(@Valid CreateProblemStatementRequest problemStatementRequest) {
         return ResponseEntity.ok(problemStatementService.createProblemStatement(createProblemStatement(problemStatementRequest)));
     }
 
-    private ProblemStatementDto createProblemStatement(ProblemStatementRequest problemStatementRequest) {
+    private ProblemStatementDto createProblemStatement(CreateProblemStatementRequest problemStatementRequest) {
         return  null;
     }
-    }
 
+    @PostMapping(value = "/compile")
+    @ApiOperation(value = "", authorizations = {@Authorization(value = "apiKey")})
+    public ResponseEntity compile(@Valid @RequestBody ProblemStatementRequest problemStatementRequest) {
+        CompileRequest compileRequest = new CompileRequest();
+        compileRequest.setLanguageId(problemStatementRequest.getLanguageId());
+        compileRequest.setExpectedOutput(problemStatementRequest.getExpectedOutput());
+        compileRequest.setSourceCode(problemStatementRequest.getSampleCode());
+        compileRequest.setStdin(problemStatementRequest.getStdin());
+        return ResponseEntity.ok(problemStatementService.compileProblemStatement(compileRequest));
+    }
+}
 

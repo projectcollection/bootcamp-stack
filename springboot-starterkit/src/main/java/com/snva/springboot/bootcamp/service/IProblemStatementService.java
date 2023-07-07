@@ -1,6 +1,7 @@
 package com.snva.springboot.bootcamp.service;
 
-import com.snva.springboot.bootcamp.controller.v1.request.bootcamp.livecode.ProblemStatementRequest;
+import com.snva.springboot.bootcamp.controller.v1.request.bootcamp.livecode.CompileRequest;
+import com.snva.springboot.bootcamp.controller.v1.response.CompileResponse;
 import com.snva.springboot.bootcamp.dto.model.bootcamp.livecode.ProblemStatementDto;
 import com.snva.springboot.bootcamp.model.bootcamp.livecode.ProblemStatement;
 
@@ -14,5 +15,7 @@ public interface IProblemStatementService {
     Optional<ProblemStatement> problemStatementById(String id);
     String DeleteProblemStatement();
     List<ProblemStatement> allProblemStatement();
+
+    CompileResponse compileProblemStatement(CompileRequest compileRequest);
 
 }

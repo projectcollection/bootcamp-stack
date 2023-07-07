@@ -2,9 +2,11 @@ package com.snva.springboot.bootcamp.config;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.NamingConventions;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.client.RestTemplate;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -15,13 +17,24 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
+import java.time.Duration;
 import java.util.Arrays;
 
 /**
- * Created by Arpit Khandelwal.
+ * Created by Dheeraj Singh.
  */
 @Configuration
 public class BrsConfiguration {
+
+
+    @Bean
+    public RestTemplate restTemplate(RestTemplateBuilder builder) {
+
+        return builder
+                .setConnectTimeout(Duration.ofMillis(3000))
+                .setReadTimeout(Duration.ofMillis(3000))
+                .build();
+    }
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {

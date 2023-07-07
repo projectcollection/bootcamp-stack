@@ -30,7 +30,7 @@ public class ProblemStatement {
     private List<Solution> solutions;
     private List<Submission> submissions;
     private String sampleCode;
-    private List<TestCase> testCases;
+    private List<String> testCases;
     private List <String>results;
     private List<Discussion> discussions;
     private List<String> similarQuestions;

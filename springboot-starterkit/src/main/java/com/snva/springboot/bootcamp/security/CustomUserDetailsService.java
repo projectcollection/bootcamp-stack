@@ -16,9 +16,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-/**
- * Created by Arpit Khandelwal.
- */
+
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
