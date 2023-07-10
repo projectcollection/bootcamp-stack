@@ -24,6 +24,8 @@ public interface UserService {
      */
     UserDto findUserByEmail(String email);
 
+    UserDto findUserById(String id);
+
     /**
      * Update profile of the user
      *

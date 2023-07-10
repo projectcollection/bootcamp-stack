@@ -100,6 +100,16 @@ public class UserServiceImpl implements UserService {
         throw exception(USER, ENTITY_NOT_FOUND, email);
     }
 
+    @Override
+    public UserDto findUserById(String id) {
+        Optional<User> user = userRepository.findById(id);
+        if (user.isPresent()) {
+            return  UserMapper.toUserDto(user.get());
+            //return modelMapper.map(, UserDto.class);
+        }
+        throw exception(USER, ENTITY_NOT_FOUND, id);
+    }
+
     /**
      * Update User Profile
      *

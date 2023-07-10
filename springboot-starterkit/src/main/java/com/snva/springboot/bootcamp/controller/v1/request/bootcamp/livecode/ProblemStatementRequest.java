@@ -1,10 +1,14 @@
 package com.snva.springboot.bootcamp.controller.v1.request.bootcamp.livecode;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
 
 @Data
+@Getter
+@Setter
 public class ProblemStatementRequest {
     private String userId;
     private String languageId;

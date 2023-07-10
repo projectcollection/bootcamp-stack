@@ -4,9 +4,14 @@ import com.snva.springboot.bootcamp.model.bootcamp.livecode.Discussion;
 import com.snva.springboot.bootcamp.model.bootcamp.livecode.Editorial;
 import com.snva.springboot.bootcamp.model.bootcamp.livecode.Solution;
 import com.snva.springboot.bootcamp.model.bootcamp.livecode.Submission;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.List;
-
+@Data
+@Getter
+@Setter
 public class CreateProblemStatementRequest {
     private String name;
     private String description;
