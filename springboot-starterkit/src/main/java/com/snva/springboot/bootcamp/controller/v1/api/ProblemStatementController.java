@@ -50,12 +50,9 @@ public class ProblemStatementController {
     @PostMapping("/addProblemStatement")
     @ApiOperation(value = "", authorizations = {@Authorization(value = "apiKey")})
     public ResponseEntity addProblemStatement(@Valid @RequestBody CreateProblemStatementRequest problemStatementRequest) {
-        return ResponseEntity.ok(problemStatementService.createProblemStatement(createProblemStatement(problemStatementRequest)));
+        return ResponseEntity.ok(problemStatementService.createProblemStatement(problemStatementRequest));
     }
 
-    private ProblemStatementDto createProblemStatement(CreateProblemStatementRequest problemStatementRequest) {
-        return  null;
-    }
 
     @PostMapping(value = "/compile")
     @ApiOperation(value = "", authorizations = {@Authorization(value = "apiKey")})

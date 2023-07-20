@@ -1,14 +1,19 @@
 package com.snva.springboot.bootcamp.controller.v1.request.bootcamp.livecode;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.*;
+import lombok.experimental.Accessors;
 
 import java.util.List;
 
-@Data
 @Getter
 @Setter
+@Accessors(chain = true)
+@NoArgsConstructor
+@ToString
+@JsonInclude(value = JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ProblemStatementRequest {
     private String userId;
     private String languageId;

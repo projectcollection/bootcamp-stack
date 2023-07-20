@@ -1,6 +1,5 @@
 package com.snva.springboot.bootcamp.model.bootcamp.livecode;
 
-import com.snva.springboot.bootcamp.model.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,7 +13,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class Comment {
-    @DBRef
-    private User user;
+
+    private String user;
     String comment;
 }

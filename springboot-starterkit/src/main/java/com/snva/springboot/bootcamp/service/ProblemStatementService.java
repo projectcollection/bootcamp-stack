@@ -4,11 +4,13 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.snva.springboot.bootcamp.controller.v1.request.bootcamp.livecode.CompileRequest;
+import com.snva.springboot.bootcamp.controller.v1.request.bootcamp.livecode.CreateProblemStatementRequest;
 import com.snva.springboot.bootcamp.controller.v1.request.bootcamp.livecode.Status;
 import com.snva.springboot.bootcamp.controller.v1.response.CompileResponse;
 import com.snva.springboot.bootcamp.controller.v1.response.LanguagesResponse;
 import com.snva.springboot.bootcamp.controller.v1.response.SubmissionResponse;
 import com.snva.springboot.bootcamp.dto.mapper.UserMapper;
+import com.snva.springboot.bootcamp.dto.mapper.livecode.ProblemStatementMapper;
 import com.snva.springboot.bootcamp.dto.model.bootcamp.livecode.ProblemStatementDto;
 import com.snva.springboot.bootcamp.model.bootcamp.CodeCompile;
 import com.snva.springboot.bootcamp.model.bootcamp.livecode.ProblemStatement;
@@ -16,6 +18,7 @@ import com.snva.springboot.bootcamp.model.bootcamp.livecode.ProblemStatement;
 import com.snva.springboot.bootcamp.model.user.User;
 
 import com.snva.springboot.bootcamp.repository.livecode.CodeCompileRepository;
+import com.snva.springboot.bootcamp.repository.livecode.ProblemStatementRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,8 +42,15 @@ public class ProblemStatementService implements  IProblemStatementService {
     @Autowired
     CodeCompileRepository compilationRepository;
 
+    @Autowired
+    ProblemStatementRepository problemStatementRepository;
+
     @Override
-    public Optional<ProblemStatement> createProblemStatement(ProblemStatementDto problemStatementDto) {
+    public Optional<ProblemStatement> createProblemStatement(CreateProblemStatementRequest problemStatementDto) {
+        ProblemStatement problemStatement = new ProblemStatement();
+
+
+        problemStatementRepository.save(ProblemStatementMapper.toUser(problemStatementDto));
         return Optional.empty();
     }
 
@@ -61,7 +71,7 @@ public class ProblemStatementService implements  IProblemStatementService {
 
     @Override
     public List<ProblemStatement> allProblemStatement() {
-        return null;
+        return problemStatementRepository.findAll();
     }
 
     @Override
@@ -80,7 +90,7 @@ public class ProblemStatementService implements  IProblemStatementService {
         HttpEntity<Map<String, Object>> entity = new HttpEntity<>(map, headers);
         ResponseEntity<String> response = null;
         try {
-            response = restTemplate.postForEntity("http://localhost:2358/submissions??base64_encoded=true&fields=*", entity, String.class);
+            response = restTemplate.postForEntity("http://localhost:2358/submissions?base64_encoded=true&fields=*", entity, String.class);
             SubmissionResponse submissionResponse = new Gson().fromJson(response.getBody(), SubmissionResponse.class);
             try {
                 if (response.getStatusCode() == HttpStatus.CREATED) {
