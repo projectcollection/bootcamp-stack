@@ -1,6 +1,8 @@
 package com.snva.springboot.bootcamp.controller.v1.api;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.google.gson.Gson;
 import com.snva.springboot.bootcamp.controller.v1.response.UploadFileResponse;
 import com.snva.springboot.bootcamp.dto.model.user.UserDto;
 import com.snva.springboot.bootcamp.security.CustomUserDetailsService;
@@ -20,10 +22,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import net.minidev.json.JSONObject;
+import net.minidev.json.parser.JSONParser;
+import net.minidev.json.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +42,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -55,6 +65,9 @@ public class JwtAuthenticationController {
 
 
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationController.class);
+
+    @Value("${spring.app.ai.python.resume.url}")
+    private  String AI_RESUME_PARSER;
 
     @Autowired
     private FileStorageService fileStorageService;
@@ -177,33 +190,42 @@ public class JwtAuthenticationController {
 
     }
 
-    private void authernticate(String email, String password) throws  Exception{
-        try{
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email,password));
-        }
-        catch (DisabledException dE){
-            throw  new Exception("User Desabled", dE);
-        }
-        catch (BadCredentialsException badCredentialsException){
-            throw  new Exception("User Desabled", badCredentialsException);
+    private void authernticate(String email, String password) throws  Exception {
+        try {
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, password));
+        } catch (DisabledException dE) {
+            throw new Exception("User Desabled", dE);
+        } catch (BadCredentialsException badCredentialsException) {
+            throw new Exception("User Desabled", badCredentialsException);
         }
 
     }
-
-
-
-
     @PostMapping("/uploadFile")
     public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
-        String fileName = fileStorageService.storeFile(file);
-
-        String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/downloadFile/")
-                .path(fileName)
-                .toUriString();
-
-         UploadFileResponse res=new UploadFileResponse(fileName, fileDownloadUri,
-                file.getContentType(), file.getSize());
+        JSONObject json = null;
+        UploadFileResponse res = new UploadFileResponse();
+        String fileName = "";
+        String fileDownloadUri = "";
+        try {
+            fileName = fileStorageService.storeFile(file);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+            MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+            body.add("file", fileStorageService.loadFileAsResource(fileName));
+            HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
+            RestTemplate restTemplate = new RestTemplate();
+            ResponseEntity<String> response = restTemplate.postForEntity(AI_RESUME_PARSER, requestEntity, String.class);
+            JSONParser parser = new JSONParser();
+            json = (JSONObject) parser.parse(response.getBody());
+            fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                    .path("/downloadFile/")
+                    .path(fileName)
+                    .toUriString();
+        } catch (ParseException err) {
+            res = new UploadFileResponse(err.getMessage(), err.getLocalizedMessage(), "", err.getErrorType(), "");
+            System.out.println(err);
+        }
+        res = new UploadFileResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize(), json.toString());
         return res;
     }
 
