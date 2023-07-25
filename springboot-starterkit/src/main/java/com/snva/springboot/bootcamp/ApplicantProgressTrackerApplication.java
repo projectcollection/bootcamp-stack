@@ -1,5 +1,6 @@
 package com.snva.springboot.bootcamp;
 
+import com.snva.springboot.bootcamp.config.FileStorageProperties;
 import com.snva.springboot.bootcamp.model.bootcamp.*;
 import com.snva.springboot.bootcamp.model.bus.*;
 import com.snva.springboot.bootcamp.model.user.*;
@@ -16,12 +17,16 @@ import com.snva.springboot.bootcamp.util.DateUtils;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.*;
 
 @SpringBootApplication
+@EnableConfigurationProperties({
+        FileStorageProperties.class
+})
 public class ApplicantProgressTrackerApplication {
 
     public static void main(String[] args) {
