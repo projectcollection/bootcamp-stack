@@ -12,7 +12,7 @@ services:
   api:
     image: bootcamp-api:latest
     build:
-        context: ./WebApplicationReact
+        context: ./springboot-starterkit
         dockerfile: Dockerfile
     container_name: bootcamp-api-container
     restart: on-failure
@@ -20,22 +20,5 @@ services:
       - "8077:8077"
     depends_on:
       - pyapi
-  # chatserver:
-  #   image: chat-server:latest
-  #   container_name: chat-server-container
-  #   restart: on-failure
-  #   depends_on:
-  #     - api
-  #   ports:
-  #     - "8081:8081"
-  # web: 
-  #   image: bootcamp-frontend:latest
-  #   container_name: bootcamp-frontend-container
-  #   restart: on-failure
-  #   depends_on:
-  #     - api
-  #   ports:
-  #     - "80:80"
-
 
   
