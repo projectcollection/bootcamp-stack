@@ -1,17 +1,18 @@
 package com.snva.springboot.bootcamp.controller.v1.api;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.google.gson.Gson;
+import com.snva.springboot.bootcamp.controller.v1.request.UserSignupRequest;
+import com.snva.springboot.bootcamp.controller.v1.response.LoginResponse;
 import com.snva.springboot.bootcamp.controller.v1.response.UploadFileResponse;
+import com.snva.springboot.bootcamp.controller.v1.response.ml.api.ResumeParsingResponse;
+import com.snva.springboot.bootcamp.dto.model.recruitment.ApplicantDto;
 import com.snva.springboot.bootcamp.dto.model.user.UserDto;
+import com.snva.springboot.bootcamp.dto.response.Response;
 import com.snva.springboot.bootcamp.security.CustomUserDetailsService;
 import com.snva.springboot.bootcamp.security.SecurityConstants;
 import com.snva.springboot.bootcamp.service.FileStorageService;
+import com.snva.springboot.bootcamp.service.IResumeParsingService;
 import com.snva.springboot.bootcamp.service.UserService;
-import com.snva.springboot.bootcamp.controller.v1.request.UserSignupRequest;
-import com.snva.springboot.bootcamp.controller.v1.response.LoginResponse;
-import com.snva.springboot.bootcamp.dto.response.Response;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -22,15 +23,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import net.minidev.json.JSONObject;
-import net.minidev.json.parser.JSONParser;
-import net.minidev.json.parser.ParseException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -42,10 +38,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -63,11 +56,11 @@ import java.util.stream.Collectors;
 @Api(value = "brs-application", description = "Operations pertaining to user login acnd logout in the BRS application")
 public class JwtAuthenticationController {
 
-
     private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationController.class);
 
-    @Value("${spring.app.ai.python.resume.url}")
-    private  String AI_RESUME_PARSER;
+    @Autowired
+    private IResumeParsingService resumeParsingService;
+
 
     @Autowired
     private FileStorageService fileStorageService;
@@ -200,41 +193,82 @@ public class JwtAuthenticationController {
         }
 
     }
+
+    /* THE ORIGINAL CODE START */
+//    @PostMapping("/uploadFile")
+//    public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
+//        ResponseEntity<String> response = null;
+//        UploadFileResponse res = new UploadFileResponse();
+//        String fileName = "";
+//        String fileDownloadUri = "";
+//        try {
+//            fileName = fileStorageService.storeFile(file);
+//            HttpHeaders headers = new HttpHeaders();
+//            headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+//            MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+//            body.add("file", fileStorageService.loadFileAsResource(fileName));
+//            HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
+//            RestTemplate restTemplate = new RestTemplate();
+//            response = restTemplate.postForEntity(AI_RESUME_PARSER, requestEntity, String.class);
+//            fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+//                    .path("/downloadFile/")
+//                    .path(fileName)
+//                    .toUriString();
+//            ResumeParsingResponse resumeParsingResponse = getFromJson(response.getBody());
+//            res = new UploadFileResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize(), resumeParsingResponse, response.getBody());
+//
+//        } catch (Exception err) {
+//            res = new UploadFileResponse(err.getMessage(), err.getLocalizedMessage(), "", 0, null, err.getMessage());
+//            System.out.println(err);
+//        }
+//        return res;
+//    }
+
+    /* THE ORIGINAL CODE ENDS */
+
     @PostMapping("/uploadFile")
     public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
-        JSONObject json = null;
+        ResponseEntity<String> response = null;
         UploadFileResponse res = new UploadFileResponse();
         String fileName = "";
         String fileDownloadUri = "";
         try {
             fileName = fileStorageService.storeFile(file);
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-            MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-            body.add("file", fileStorageService.loadFileAsResource(fileName));
-            HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
-            RestTemplate restTemplate = new RestTemplate();
-            ResponseEntity<String> response = restTemplate.postForEntity(AI_RESUME_PARSER, requestEntity, String.class);
-            JSONParser parser = new JSONParser();
-            json = (JSONObject) parser.parse(response.getBody());
+            ResumeParsingResponse resumeParsingResponse = resumeParsingService.getResumeParsed(fileStorageService.loadFileAsResource(fileName));
             fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                     .path("/downloadFile/")
                     .path(fileName)
                     .toUriString();
-        } catch (ParseException err) {
-            res = new UploadFileResponse(err.getMessage(), err.getLocalizedMessage(), "", err.getErrorType(), "");
+            ApplicantDto applicantDto = new ApplicantDto();
+            applicantDto.setDegree(resumeParsingResponse.getData().getDegree());
+            applicantDto.setDesignation(resumeParsingResponse.getData().getDesignition());
+            applicantDto.setEmail(resumeParsingResponse.getData().getEmail());
+            applicantDto.setId(null);
+            applicantDto.setTotalExp(resumeParsingResponse.getData().getTotalExp());
+            applicantDto.setPhone(resumeParsingResponse.getData().getPhone());
+            List<String> resumeLinks = new ArrayList<>();
+            resumeLinks.add(fileDownloadUri);
+            applicantDto.setResumeLinks(resumeLinks);
+            applicantDto.setSkills(resumeParsingResponse.getData().getSkills());
+            applicantDto.setUniversity(resumeParsingResponse.getData().getUniversity());
+            applicantDto.setName(resumeParsingResponse.getData().getName());
+            applicantDto = resumeParsingService.addApplicant(applicantDto);
+            res = new UploadFileResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize(), "", applicantDto);
+        } catch (Exception err) {
+            res = new UploadFileResponse(err.getMessage(), err.getLocalizedMessage(), "", 0, err.getMessage(), null);
             System.out.println(err);
         }
-        res = new UploadFileResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize(), json.toString());
         return res;
     }
 
     @PostMapping("/uploadMultipleFiles")
-    public List<UploadFileResponse> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
-        return Arrays.asList(files)
-                .stream()
-                .map(file -> uploadFile(file))
-                .collect(Collectors.toList());
+    public List<ApplicantDto> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
+        return resumeParsingService.allApplicants();
+    }
+
+    @GetMapping("/showAllApplicants")
+    public List<ApplicantDto> showAllApplicants() {
+        return resumeParsingService.allApplicants();
     }
 
     @GetMapping("/downloadFile/{fileName:.+}")
