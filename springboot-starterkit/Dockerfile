@@ -1,5 +1,6 @@
 # our base build image
-FROM maven:3.6.0-jdk-8 as maven
+# FROM maven:3.6.0-jdk-8 as maven
+FROM maven:3.6.3-jdk-11 as maven
 
 # copy the project files
 COPY ./pom.xml ./pom.xml
@@ -14,7 +15,7 @@ COPY ./src ./src
 RUN mvn package -DskipTests
 
 # our final base image
-FROM openjdk:8-jre-alpine
+FROM openjdk:11.0.11-jre-slim
 
 # set deployment directory
 WORKDIR /my-project

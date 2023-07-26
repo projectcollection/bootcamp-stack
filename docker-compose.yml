@@ -1,27 +1,41 @@
-version: '3.5'
+version: "3.5"
 services:
+  pyapi:
+    image: latest-py-resume:latest
+    build:
+        context: ./ResumeParsingApi
+        dockerfile: Dockerfile
+    container_name: py-resume
+    restart: on-failure
+    ports:
+      - "5000:5000"
   api:
     image: bootcamp-api:latest
+    build:
+        context: ./WebApplicationReact
+        dockerfile: Dockerfile
     container_name: bootcamp-api-container
     restart: on-failure
     ports:
       - "8077:8077"
-  chatserver:
-    image: chat-server:latest
-    container_name: chat-server-container
-    restart: on-failure
     depends_on:
-      - api
-    ports:
-      - "8081:8081"
-  web: 
-    image: bootcamp-frontend:latest
-    container_name: bootcamp-frontend-container
-    restart: on-failure
-    depends_on:
-      - api
-    ports:
-      - "80:80"
+      - pyapi
+  # chatserver:
+  #   image: chat-server:latest
+  #   container_name: chat-server-container
+  #   restart: on-failure
+  #   depends_on:
+  #     - api
+  #   ports:
+  #     - "8081:8081"
+  # web: 
+  #   image: bootcamp-frontend:latest
+  #   container_name: bootcamp-frontend-container
+  #   restart: on-failure
+  #   depends_on:
+  #     - api
+  #   ports:
+  #     - "80:80"
 
 
   
