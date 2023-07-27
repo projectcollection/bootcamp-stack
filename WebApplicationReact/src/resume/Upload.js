@@ -3,7 +3,17 @@ import { baseurl } from "../include/Urlinclude.js";
 
 const Upload = ({ profile }) => {
     const profileJson = JSON.parse(profile);
+
     const jwtToken = profileJson.response;
+    const roles = profileJson.user.roles.map(role => role.role);
+
+    const hasAccess = roles.some(role => {
+        return ["RECRUITER", "SRRECRUITER", "RECRUITERADMIN"].includes(role)
+    });
+
+    if (!hasAccess) {
+        window.location.replace('/profile');
+    }
 
     const dropZone = useRef(null);
 
@@ -26,11 +36,7 @@ const Upload = ({ profile }) => {
             });
         });
 
-        const responses = await Promise.all(uploadPromises)
-
-        responses.forEach(async (res) => {
-            console.log(await res.json());
-        });
+        await Promise.all(uploadPromises)
 
         setIsUploading(false);
     }
@@ -70,6 +76,10 @@ const Upload = ({ profile }) => {
     function handleDragLeave(event) {
         const element = dropZone.current;
         element.style.background = "blue";
+    }
+
+    if (!hasAccess) {
+        return <></>
     }
 
     if (isUploading) {
