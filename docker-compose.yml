@@ -16,9 +16,11 @@ services:
         dockerfile: Dockerfile
     container_name: bootcamp-api-container
     restart: on-failure
+    environment:
+      - RESUME_UPLOAD_URL=http://pyapi:5000/api/v1/file-upload
     ports:
       - "8077:8077"
     depends_on:
       - pyapi
 
-  
+

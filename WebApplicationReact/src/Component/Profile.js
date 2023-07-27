@@ -51,7 +51,7 @@ function Profile() {
     }
 
     const options = {
-      method: "POST",
+      method: "GET",
       url: baseurl + "/user/apiprofile",
       headers: {
         Authorization: `Bearer ${token}`,
