@@ -28,45 +28,36 @@ public class ResumeParsingResponse {
     private String message;
     @JsonIgnore
     private Map<String, Object> additionalProperties = new LinkedHashMap<String, Object>();
-
     @JsonProperty("status_code")
     public int getStatusCode() {
         return statusCode;
     }
-
     @JsonProperty("status_code")
     public void setStatusCode(int statusCode) {
         this.statusCode = statusCode;
     }
-
     @JsonProperty("data")
     public Data getData() {
         return data;
     }
-
     @JsonProperty("data")
     public void setData(Data data) {
         this.data = data;
     }
-
     @JsonProperty("message")
     public String getMessage() {
         return message;
     }
-
     @JsonProperty("message")
     public void setMessage(String message) {
         this.message = message;
     }
-
     @JsonAnyGetter
     public Map<String, Object> getAdditionalProperties() {
         return this.additionalProperties;
     }
-
     @JsonAnySetter
     public void setAdditionalProperty(String name, Object value) {
         this.additionalProperties.put(name, value);
     }
-
 }

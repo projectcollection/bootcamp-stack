@@ -2,6 +2,7 @@ package com.snva.springboot.bootcamp.controller.v1.api;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.snva.springboot.bootcamp.controller.v1.request.UserSignupRequest;
+import com.snva.springboot.bootcamp.controller.v1.request.recruitment.EditApplicantRequest;
 import com.snva.springboot.bootcamp.controller.v1.response.LoginResponse;
 import com.snva.springboot.bootcamp.controller.v1.response.UploadFileResponse;
 import com.snva.springboot.bootcamp.controller.v1.response.ml.api.ResumeParsingResponse;
@@ -128,6 +129,7 @@ public class JwtAuthenticationController {
     }
 
     @PutMapping(value = "/updateprofile", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "", authorizations = {@Authorization(value = "apiKey")})
     public  ResponseEntity updateProfile(@RequestBody UserDto userDto){
         return ResponseEntity.ok( userService.updateProfile(userDto));
     }
@@ -194,7 +196,8 @@ public class JwtAuthenticationController {
 
     }
 
-    /* THE ORIGINAL CODE START */
+
+//
 //    @PostMapping("/uploadFile")
 //    public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
 //        ResponseEntity<String> response = null;
@@ -203,98 +206,77 @@ public class JwtAuthenticationController {
 //        String fileDownloadUri = "";
 //        try {
 //            fileName = fileStorageService.storeFile(file);
-//            HttpHeaders headers = new HttpHeaders();
-//            headers.setContentType(MediaType.MULTIPART_FORM_DATA);
-//            MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
-//            body.add("file", fileStorageService.loadFileAsResource(fileName));
-//            HttpEntity<MultiValueMap<String, Object>> requestEntity = new HttpEntity<>(body, headers);
-//            RestTemplate restTemplate = new RestTemplate();
-//            response = restTemplate.postForEntity(AI_RESUME_PARSER, requestEntity, String.class);
+//            ResumeParsingResponse resumeParsingResponse = resumeParsingService.getResumeParsed(fileStorageService.loadFileAsResource(fileName));
 //            fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
 //                    .path("/downloadFile/")
 //                    .path(fileName)
 //                    .toUriString();
-//            ResumeParsingResponse resumeParsingResponse = getFromJson(response.getBody());
-//            res = new UploadFileResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize(), resumeParsingResponse, response.getBody());
-//
+//            ApplicantDto applicantDto = new ApplicantDto();
+//            applicantDto.setDegree(resumeParsingResponse.getData().getDegree());
+//            applicantDto.setDesignation(resumeParsingResponse.getData().getDesignition());
+//            applicantDto.setEmail(resumeParsingResponse.getData().getEmail());
+//            applicantDto.setId(null);
+//            applicantDto.setTotalExp(resumeParsingResponse.getData().getTotalExp());
+//            applicantDto.setPhone(resumeParsingResponse.getData().getPhone());
+//            List<String> resumeLinks = new ArrayList<>();
+//            resumeLinks.add(fileDownloadUri);
+//            applicantDto.setResumeLinks(resumeLinks);
+//            applicantDto.setSkills(resumeParsingResponse.getData().getSkills());
+//            applicantDto.setUniversity(resumeParsingResponse.getData().getUniversity());
+//            applicantDto.setName(resumeParsingResponse.getData().getName());
+//            applicantDto = resumeParsingService.addApplicant(applicantDto);
+//            res = new UploadFileResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize(), "", applicantDto);
 //        } catch (Exception err) {
-//            res = new UploadFileResponse(err.getMessage(), err.getLocalizedMessage(), "", 0, null, err.getMessage());
+//            res = new UploadFileResponse(err.getMessage(), err.getLocalizedMessage(), "", 0, err.getMessage(), null);
 //            System.out.println(err);
 //        }
 //        return res;
 //    }
-
-    /* THE ORIGINAL CODE ENDS */
-
-    @PostMapping("/uploadFile")
-    public UploadFileResponse uploadFile(@RequestParam("file") MultipartFile file) {
-        ResponseEntity<String> response = null;
-        UploadFileResponse res = new UploadFileResponse();
-        String fileName = "";
-        String fileDownloadUri = "";
-        try {
-            fileName = fileStorageService.storeFile(file);
-            ResumeParsingResponse resumeParsingResponse = resumeParsingService.getResumeParsed(fileStorageService.loadFileAsResource(fileName));
-            fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                    .path("/downloadFile/")
-                    .path(fileName)
-                    .toUriString();
-            ApplicantDto applicantDto = new ApplicantDto();
-            applicantDto.setDegree(resumeParsingResponse.getData().getDegree());
-            applicantDto.setDesignation(resumeParsingResponse.getData().getDesignition());
-            applicantDto.setEmail(resumeParsingResponse.getData().getEmail());
-            applicantDto.setId(null);
-            applicantDto.setTotalExp(resumeParsingResponse.getData().getTotalExp());
-            applicantDto.setPhone(resumeParsingResponse.getData().getPhone());
-            List<String> resumeLinks = new ArrayList<>();
-            resumeLinks.add(fileDownloadUri);
-            applicantDto.setResumeLinks(resumeLinks);
-            applicantDto.setSkills(resumeParsingResponse.getData().getSkills());
-            applicantDto.setUniversity(resumeParsingResponse.getData().getUniversity());
-            applicantDto.setName(resumeParsingResponse.getData().getName());
-            applicantDto = resumeParsingService.addApplicant(applicantDto);
-            res = new UploadFileResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize(), "", applicantDto);
-        } catch (Exception err) {
-            res = new UploadFileResponse(err.getMessage(), err.getLocalizedMessage(), "", 0, err.getMessage(), null);
-            System.out.println(err);
-        }
-        return res;
-    }
-
-    @PostMapping("/uploadMultipleFiles")
-    public List<ApplicantDto> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
-        return resumeParsingService.allApplicants();
-    }
-
-    @GetMapping("/showAllApplicants")
-    public List<ApplicantDto> showAllApplicants() {
-        return resumeParsingService.allApplicants();
-    }
-
-    @GetMapping("/downloadFile/{fileName:.+}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
-        // Load file as Resource
-        Resource resource = fileStorageService.loadFileAsResource(fileName);
-
-        // Try to determine file's content type
-        String contentType = null;
-        try {
-            contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
-        } catch (IOException ex) {
-            logger.info("Could not determine file type.");
-        }
-
-        // Fallback to the default content type if type could not be determined
-        if(contentType == null) {
-            contentType = "application/octet-stream";
-        }
-
-        return ResponseEntity.ok()
-                .contentType(MediaType.parseMediaType(contentType))
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
-                .body(resource);
-    }
-
+//
+//    @PostMapping("/uploadMultipleFiles")
+//    public List<ApplicantDto> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files) {
+//        return resumeParsingService.allApplicants();
+//    }
+//
+//    @PostMapping("/editApplicant")
+//    public ResponseEntity<ApplicantDto> editApplicant(@RequestBody EditApplicantRequest editApplicantRequest) {
+//        return ResponseEntity.ok(resumeParsingService.updateApplicant(editApplicantRequest));
+//    }
+//
+//    @GetMapping("/applicantById")
+//    public ResponseEntity<ApplicantDto> showAllApplicantById(@RequestBody String id) {
+//        return ResponseEntity.ok(resumeParsingService.applicantById(id));
+//    }
+//
+//    @GetMapping("/showAllApplicants")
+//    public List<ApplicantDto> showAllApplicants() {
+//        return resumeParsingService.allApplicants();
+//    }
+//
+//    @GetMapping("/downloadFile/{fileName:.+}")
+//    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request) {
+//        // Load file as Resource
+//        Resource resource = fileStorageService.loadFileAsResource(fileName);
+//
+//        // Try to determine file's content type
+//        String contentType = null;
+//        try {
+//            contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
+//        } catch (IOException ex) {
+//            logger.info("Could not determine file type.");
+//        }
+//
+//        // Fallback to the default content type if type could not be determined
+//        if(contentType == null) {
+//            contentType = "application/octet-stream";
+//        }
+//
+//        return ResponseEntity.ok()
+//                .contentType(MediaType.parseMediaType(contentType))
+//                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+//                .body(resource);
+//    }
+//
 
 
 

@@ -1,6 +1,7 @@
 package com.snva.springboot.bootcamp.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.snva.springboot.bootcamp.controller.v1.request.recruitment.EditApplicantRequest;
 import com.snva.springboot.bootcamp.controller.v1.response.ml.api.ResumeParsingResponse;
 import com.snva.springboot.bootcamp.dto.model.recruitment.ApplicantDto;
 import org.springframework.core.io.Resource;
@@ -14,6 +15,10 @@ public interface IResumeParsingService {
     ApplicantDto addApplicant(ApplicantDto file);
 
     List<ApplicantDto> allApplicants();
+
+    ApplicantDto applicantById(String id);
+
+    ApplicantDto updateApplicant(EditApplicantRequest editApplicantRequest);
 //    List<ResumeParsingResponse> addApplicant(String booleanSearch);
 
 }

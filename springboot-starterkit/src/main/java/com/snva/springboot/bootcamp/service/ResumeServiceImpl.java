@@ -2,10 +2,14 @@ package com.snva.springboot.bootcamp.service;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.snva.springboot.bootcamp.controller.v1.request.recruitment.EditApplicantRequest;
 import com.snva.springboot.bootcamp.controller.v1.response.ml.api.Data;
 import com.snva.springboot.bootcamp.controller.v1.response.ml.api.ResumeParsingResponse;
 import com.snva.springboot.bootcamp.dto.mapper.recruitment.ApplicantMapper;
 import com.snva.springboot.bootcamp.dto.model.recruitment.ApplicantDto;
+import com.snva.springboot.bootcamp.exception.EntityType;
+import com.snva.springboot.bootcamp.exception.ExceptionType;
+import com.snva.springboot.bootcamp.exception.LearnerDromeException;
 import com.snva.springboot.bootcamp.model.recruitment.Applicant;
 import com.snva.springboot.bootcamp.repository.recruitment.ApplicantRepository;
 import org.json.JSONObject;
@@ -25,6 +29,9 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static com.snva.springboot.bootcamp.exception.EntityType.STOP;
+import static com.snva.springboot.bootcamp.exception.ExceptionType.ENTITY_NOT_FOUND;
 
 
 @Service
@@ -83,6 +90,35 @@ public class ResumeServiceImpl implements  IResumeParsingService {
         return  applicantDtos;
     }
 
+    @Override
+    public ApplicantDto applicantById(String id) {
+        Optional<Applicant> applicant= applicantRepository.findById(id);
+        if (applicant.isPresent() ){
+            return ApplicantMapper.toApplicantDto(applicant.get());
+        }
+        throw exception(STOP, ENTITY_NOT_FOUND, id);
+    }
+
+    @Override
+    public ApplicantDto updateApplicant(EditApplicantRequest editApplicantRequest) {
+        Optional<Applicant> applicant= applicantRepository.findById(editApplicantRequest.getId());
+        if (applicant.isPresent() ){
+            Applicant applicantToSave= applicant.get();
+            applicantToSave.setName(editApplicantRequest.getName());
+            applicantToSave.setResumeLinks(editApplicantRequest.getResumeLinks());
+            applicantToSave.setSkills(editApplicantRequest.getSkills());
+            applicantToSave.setUniversity(editApplicantRequest.getUniversity());
+            applicantToSave.setEmail(editApplicantRequest.getEmail());
+            applicantToSave.setDesignation(editApplicantRequest.getDesignation());
+            applicantToSave.setDegree(editApplicantRequest.getDegree());
+            applicantToSave.setTotalExp(editApplicantRequest.getTotalExp());
+            applicantToSave.setId(editApplicantRequest.getId());
+            applicantToSave.setPhone(applicantToSave.getPhone());
+            return ApplicantMapper.toApplicantDto(applicantRepository.save(applicantToSave));
+        }
+        throw exception(STOP, ENTITY_NOT_FOUND, editApplicantRequest.getId());
+    }
+
     private ResumeParsingResponse getFromJson(String body) throws JsonProcessingException {
         ResumeParsingResponse resumeParsingResponse = new ResumeParsingResponse();
         JSONObject jsonObject = new JSONObject();
@@ -93,4 +129,16 @@ public class ResumeServiceImpl implements  IResumeParsingService {
         resumeParsingResponse.setMessage(jsonObject.getString("message"));
         return resumeParsingResponse;
     }
+    /**
+     * Returns a new RuntimeException
+     *
+     * @param entityType
+     * @param exceptionType
+     * @param args
+     * @return
+     */
+    private RuntimeException exception(EntityType entityType, ExceptionType exceptionType, String... args) {
+        return LearnerDromeException.throwException(entityType, exceptionType, args);
+    }
+
 }

@@ -30,4 +30,7 @@ public class Applicant {
     @Indexed(unique = true, direction = IndexDirection.DESCENDING)
     private List<String> skills;
     private List<String> resumeLinks;
+    private List<Remark> remarks;
+    private List<String> tags;
+    private String mark;
 }

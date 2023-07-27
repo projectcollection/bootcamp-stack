@@ -35,7 +35,7 @@ def upload_file():
 		filename = secure_filename(file.filename)        
 		file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 		data=resumeparse.read_file(os.path.join(app.config['UPLOAD_FOLDER'], filename))		
-		result = json.dumps(data)
+		result = json.dumps(data, indent = 4)
 		print(type(data))
 		print(data)
 		print(result)
