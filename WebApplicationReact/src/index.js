@@ -16,6 +16,7 @@ import AuthServices from "./Services/AuthServices";
 import Dashboard from "./dashboard/Dashboard";
 
 import ProfilePage from "./profile/Profile";
+import ResumeUpload from "./resume/Upload";
 
 import Ide from "./ide/Ide";
 
@@ -42,14 +43,14 @@ const router = createBrowserRouter([
   {
     path: "/datanode",
     element: (
-        <>         
+        <>
           <TestSpinner ></TestSpinner>
           <Link to="/datanode"></Link>
         </>
     )
   },
 
-  
+
   {
     path: "/",
     element: (
@@ -69,7 +70,7 @@ const router = createBrowserRouter([
         </>
     )
   },
-  
+
   {
     path: "/my-bcamps",
     element: (
@@ -118,21 +119,21 @@ const router = createBrowserRouter([
         </>
     )
   },
-  
+
   {
-    
+
     path: "/chat",
     element: (
-        <>          
-          <Chat ></Chat>     
+        <>
+          <Chat ></Chat>
           <Link to="/chat"></Link>
         </>
     )
-    
+
   }
 
   // <Route exact path="/chat" render={(props) => <Chat {...props} />} />
-,  
+,
   {
     path: "/dashboard",
     element: (
@@ -150,14 +151,24 @@ const router = createBrowserRouter([
           <Link to="/profile"></Link>
         </>
     )
+  },
+  {
+    path: "/resume-upload",
+    element: (
+        <>
+          <ResumeUpload profile={AuthServices.getCurrentUser()}></ResumeUpload>
+          <Link to="/resume-upload"></Link>
+        </>
+    )
   }
+
 ])
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
 
   <RecoilRoot initializeState={updateState}>
-    <RecoilPersist />  
+    <RecoilPersist />
     <React.StrictMode>
       <RouterProvider router={router}></RouterProvider>
       {/* <FetchData></FetchData> */}

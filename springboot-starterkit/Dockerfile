@@ -19,6 +19,7 @@ FROM openjdk:11.0.11-jre-slim
 
 # set deployment directory
 WORKDIR /my-project
+RUN mkdir -p /myproject/uploadFile
 
 # copy over the built artifact from the maven image
 COPY --from=maven target/springboot-starterkit-1.0.jar ./
