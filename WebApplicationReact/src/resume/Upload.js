@@ -47,17 +47,15 @@ const Upload = ({ profile }) => {
         let files = [];
 
         if (event.dataTransfer.items) {
-            [...event.dataTransfer.items].forEach((item, i) => {
+            [...event.dataTransfer.items].forEach((item) => {
                 if (item.kind === "file") {
                     const file = item.getAsFile();
                     files.push(file);
-                    console.log(`… file[${i}].name = ${file.name}`);
                 }
             });
         } else {
-            [...event.dataTransfer.files].forEach((file, i) => {
+            [...event.dataTransfer.files].forEach((file) => {
                 files.push(file);
-                console.log(`… file[${i}].name = ${file.name}`);
             });
         }
 
@@ -66,16 +64,14 @@ const Upload = ({ profile }) => {
 
     function handleDragOver(event) {
         event.preventDefault();
-    }
 
-    function handleDragEnter(event) {
         const element = dropZone.current;
         element.style.background = "orange";
     }
 
-    function handleDragLeave(event) {
+    function handleDragLeave() {
         const element = dropZone.current;
-        element.style.background = "blue";
+        element.style.background = "#5780b3";
     }
 
     if (!hasAccess) {
@@ -84,34 +80,67 @@ const Upload = ({ profile }) => {
 
     if (isUploading) {
         return <>
-            <h1>
-                Uploading...
-            </h1>
+            <div style={{
+                display: 'flex',
+                height: '100vh',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center'
+            }}>
+                <h1>
+                    Uploading...
+                </h1>
+            </div>
         </>
     }
 
     return <>
-        <h1>
-            resume upload
-        </h1>
+        <div style={{
+            display: 'flex',
+            height: '100vh',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center'
+        }}>
+            <h1>
+                resume upload
+            </h1>
 
-        <div
-            ref={dropZone}
-            onDrop={handleDrop}
-            onDragOver={handleDragOver}
-            onDragEnter={handleDragEnter}
-            onDragLeave={handleDragLeave}
-            style={{
-                background: "blue"
-            }}>
-            <p>
-                drag and drop files here:
-            </p>
+            <div
+                style={{
+                    display: 'flex'
+                }}
+            >
+
+                <div
+                    ref={dropZone}
+                    onDrop={handleDrop}
+                    onDragOver={handleDragOver}
+                    onDragLeave={handleDragLeave}
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        background: '#5780b3',
+                        color: 'white',
+                        height: '100%',
+                        padding: '1rem'
+                    }}>
+                    <p
+                        style={{
+                            margin: '0',
+                        }}
+                    >
+                        drag and drop files here
+                    </p>
+                </div>
+
+                {filesToUpload.length > 0 && <button onClick={uploadFiles}>
+                    upload
+                </button>
+                }
+            </div>
         </div>
-
-        <button onClick={uploadFiles}>
-            upload
-        </button>
     </>
 }
 
