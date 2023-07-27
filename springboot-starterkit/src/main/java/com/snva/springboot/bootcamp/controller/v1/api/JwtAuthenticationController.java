@@ -132,7 +132,7 @@ public class JwtAuthenticationController {
         return ResponseEntity.ok( userService.updateProfile(userDto));
     }
 
-    @PostMapping("/apiprofile")
+    @GetMapping("/apiprofile")
     @ApiOperation(value = "", authorizations = {@Authorization(value = "apiKey")})
     public  ResponseEntity<?> getProfile(){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
