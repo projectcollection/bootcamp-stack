@@ -18,6 +18,7 @@ const Upload = ({ profile }) => {
     const dropZone = useRef(null);
 
     const [filesToUpload, setFiles] = useState([]);
+    const [parsedResumes, setParsedResumes] = useState([]);
     const [isUploading, setIsUploading] = useState(false);
 
     async function uploadFiles() {
@@ -27,7 +28,7 @@ const Upload = ({ profile }) => {
             let formData = new FormData;
             formData.set('file', file, file.name);
 
-            return fetch(`${baseurl}/user/uploadFile`, {
+            return fetch(`${baseurl}/applicant/uploadFile`, {
                 method: 'POST',
                 body: formData,
                 headers: {
@@ -36,8 +37,12 @@ const Upload = ({ profile }) => {
             });
         });
 
-        await Promise.all(uploadPromises)
+        const responses = await Promise.all(uploadPromises);
+        const resJson = await Promise.all(responses.map(res => res.json()));
 
+        console.log(resJson);
+
+        setParsedResumes(resJson);
         setIsUploading(false);
     }
 
@@ -97,7 +102,7 @@ const Upload = ({ profile }) => {
     return <>
         <div style={{
             display: 'flex',
-            height: '100vh',
+            minHeight: '100vh',
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center'
@@ -105,39 +110,81 @@ const Upload = ({ profile }) => {
             <h1>
                 resume upload
             </h1>
-
-            <div
-                style={{
-                    display: 'flex'
-                }}
-            >
+            <div>
 
                 <div
-                    ref={dropZone}
-                    onDrop={handleDrop}
-                    onDragOver={handleDragOver}
-                    onDragLeave={handleDragLeave}
                     style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        background: '#5780b3',
-                        color: 'white',
-                        height: '100%',
-                        padding: '1rem'
-                    }}>
-                    <p
+                        display: 'flex'
+                    }}
+                >
+                    <div
+                        ref={dropZone}
+                        onDrop={handleDrop}
+                        onDragOver={handleDragOver}
+                        onDragLeave={handleDragLeave}
                         style={{
-                            margin: '0',
-                        }}
-                    >
-                        drag and drop files here
-                    </p>
+                            display: 'flex',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            background: '#5780b3',
+                            color: 'white',
+                            height: '100%',
+                            padding: '1rem'
+                        }}>
+                        <p
+                            style={{
+                                margin: '0',
+                            }}
+                        >
+                            drag and drop files here
+                        </p>
+                    </div>
+                    {filesToUpload.length > 0 && <button onClick={uploadFiles}>
+                        upload
+                    </button>
+                    }
                 </div>
 
-                {filesToUpload.length > 0 && <button onClick={uploadFiles}>
-                    upload
-                </button>
+                {parsedResumes.length > 0 &&
+                    <div
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'column'
+                        }}
+                    >
+                        {parsedResumes.map((resume, i) => {
+                            const { applicantDto } = resume;
+                            console.log(applicantDto);
+
+                            return <div
+                                key={resume.fileName + i}
+                                style={{
+                                    padding: '5px'
+                                }}
+                            >
+                                <h3>
+                                    {resume.fileName}
+                                </h3>
+                                {Object.keys(applicantDto).map((key) => {
+                                    const value = applicantDto[key];
+                                    return <div key={key}>
+                                        <h5>
+                                            {key}:
+                                        </h5>
+                                        {Array.isArray(value) ?
+                                            <ul>
+                                                {value.map((val) => {
+                                                    return <li>{val}</li>
+                                                })}
+                                            </ul>
+                                            :
+                                            <span>{value}</span>
+                                        }
+                                    </div>
+                                })}
+                            </div>
+                        })}
+                    </div>
                 }
             </div>
         </div>
