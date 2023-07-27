@@ -35,12 +35,10 @@ def upload_file():
 		filename = secure_filename(file.filename)        
 		file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 		data=resumeparse.read_file(os.path.join(app.config['UPLOAD_FOLDER'], filename))		
-		result = json.dumps(data, indent = 4)
-		print(type(data))
-		print(data)
-		print(result)
+		result = json.dumps(data, indent = 4)		
 		resp = jsonify({'message' : 'File successfully uploaded','status_code': 201,'data': result})		
 		resp.status_code = 201
+		print("DONE !@#@!@#")
 		return resp
 	else:
 		resp = jsonify({'message' : 'Allowed file types are txt, pdf, png, jpg, jpeg, gif'})
