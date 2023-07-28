@@ -1,10 +1,12 @@
 package com.snva.springboot.bootcamp.model.bootcamp;
 
+import com.snva.springboot.bootcamp.model.recruitment.Applicant;
 import com.snva.springboot.bootcamp.model.user.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.mongodb.core.index.IndexDirection;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -33,9 +35,14 @@ public class Bootcamp {
     String description;
     String longHtml;
     @DBRef
-    List<User> users;
+    List<String> applicants;
     @DBRef
+    @Lazy
+    List<String> users;
+    @DBRef
+    @Lazy
     List<Technology> technologyStack;
     @Embedded
+    @Lazy
     List<Session> sessions;
 }

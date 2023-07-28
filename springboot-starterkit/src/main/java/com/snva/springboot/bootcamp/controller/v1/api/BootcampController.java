@@ -57,11 +57,6 @@ public class BootcampController {
     @ApiOperation(value = "", authorizations = {@Authorization(value = "apiKey")})
     public ResponseEntity<?> getBootcampByIdn(@RequestBody @Valid RequestMes requestMes) {
 
-
-//        @ApiOperation(value = "", authorizations = {@Authorization(value = "apiKey")})
-//    public ResponseEntity getBootcampsById() {
- //       return ResponseEntity.ok(bootcampService.getById("6400e882eea6663cea2b9699"));
-
         return ResponseEntity.ok(bootcampService.getById(requestMes.bootcampId));
     }
 
