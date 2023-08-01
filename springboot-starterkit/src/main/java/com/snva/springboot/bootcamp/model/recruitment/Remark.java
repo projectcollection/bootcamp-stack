@@ -15,5 +15,5 @@ public class Remark {
     private String userId;
     private String Remark;
     private Date dateCreated;
-    private  Date dateModified;
+    private Date dateModified;
 }

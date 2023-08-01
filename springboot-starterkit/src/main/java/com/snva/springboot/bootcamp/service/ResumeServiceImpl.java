@@ -26,9 +26,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static com.snva.springboot.bootcamp.exception.EntityType.STOP;
 import static com.snva.springboot.bootcamp.exception.ExceptionType.ENTITY_NOT_FOUND;
@@ -60,23 +58,43 @@ public class ResumeServiceImpl implements  IResumeParsingService {
 
     @Override
     public ApplicantDto addApplicant(ApplicantDto applicantDto) {
+        Applicant applicant=new Applicant();
+        List<String> resumeLinkList=new ArrayList<>();
         Optional<Applicant> applicantExist = applicantRepository.findByPhone(applicantDto.getPhone());
-        Applicant applicant = applicantExist.isPresent()? mapper.map(applicantExist.get(), Applicant.class):             applicantRepository.findByPhone(applicantDto.getPhone()).isPresent()?  mapper.map(  applicantRepository.findByPhone(applicantDto.getPhone()).get(), Applicant.class):null;
-        if (applicant==null) {
-            applicant = new Applicant();
-            applicant = mapper.map(applicantDto, Applicant.class);
-            applicant.setPhone(
-                    applicantDto.getPhone() == null ? "NA" : applicantDto.getPhone() == "" ? "NA" : applicantDto.getPhone()
-            );
-            applicant.setEmail(
-                    applicantDto.getEmail() == null ? "NA" : applicantDto.getEmail() == "" ? "NA" : applicantDto.getEmail()
-            );
-            applicant.setName(
-                    applicantDto.getName() == null ? "NA" : applicantDto.getName() == "" ? "NA" : applicantDto.getName()
-            );
+        if (applicantExist.isPresent()){
+          applicant=  applicantExist.get();
+            if (applicant.getPhone()==null || applicant.getPhone().contains("na")|| applicant.getPhone().contains("")){
+                applicant.setPhone(
+                        applicantDto.getPhone() == null ? "NA" : applicantDto.getPhone() == "" ? "NA" : applicantDto.getPhone()
+                );
+                applicant.setEmail(
+                        applicantDto.getEmail() == null ? "NA" : applicantDto.getEmail() == "" ? "NA" : applicantDto.getEmail()
+                );
+                applicant.setName(
+                        applicantDto.getName() == null ? "NA" : applicantDto.getName() == "" ? "NA" : applicantDto.getName()
+                );
+
+                Applicant finalApplicant = applicant;
+                applicantDto.getResumeLinks().forEach(x->{
+                    resumeLinkList.add(x);
+
+
+                });
+                applicant.setResumeLinks(resumeLinkList);
+            }
+            else {
+                applicant.setPhone(
+                        applicantDto.getPhone() == null ? "NA" : applicantDto.getPhone() == "" ? "NA" : applicantDto.getPhone()
+                );
+                applicant.setEmail(
+                        applicantDto.getEmail() == null ? "NA" : applicantDto.getEmail() == "" ? "NA" : applicantDto.getEmail()
+                );
+                applicant.setName(
+                        applicantDto.getName() == null ? "NA" : applicantDto.getName() == "" ? "NA" : applicantDto.getName()
+                );
+
+            }
         }
-        List<String> resumeLinkList = applicant.getResumeLinks();
-        applicant.setResumeLinks(resumeLinkList);
         return ApplicantMapper.toApplicantDto(applicantRepository.save(applicant));
     }
 
