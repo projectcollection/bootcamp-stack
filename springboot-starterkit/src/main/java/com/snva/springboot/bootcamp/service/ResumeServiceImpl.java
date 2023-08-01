@@ -111,6 +111,17 @@ public class ResumeServiceImpl implements  IResumeParsingService {
     }
 
     @Override
+    public List<ApplicantDto> allApplicants(String id) {
+        List<Applicant> applicants = applicantRepository.findAll();
+        List<ApplicantDto> applicantDtos =new ArrayList<>();
+        if (applicants.size()>0){
+            applicants.stream().filter(x->x.getRecruiterId().equals(id));
+            applicants.forEach(x-> applicantDtos.add(ApplicantMapper.toApplicantDto(x)) );
+        }
+        return  applicantDtos;
+    }
+
+    @Override
     public ApplicantDto applicantById(String id) {
         Optional<Applicant> applicant= applicantRepository.findById(id);
         if (applicant.isPresent() ){

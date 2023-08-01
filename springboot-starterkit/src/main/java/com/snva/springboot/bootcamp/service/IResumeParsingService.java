@@ -15,6 +15,8 @@ public interface IResumeParsingService {
     ApplicantDto addApplicant(ApplicantDto file);
 
     List<ApplicantDto> allApplicants();
+    List<ApplicantDto> allApplicants(String id);
+
 
     ApplicantDto applicantById(String id);
 
