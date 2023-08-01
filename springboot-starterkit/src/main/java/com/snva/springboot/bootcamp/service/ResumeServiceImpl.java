@@ -82,19 +82,21 @@ public class ResumeServiceImpl implements  IResumeParsingService {
                 });
                 applicant.setResumeLinks(resumeLinkList);
             }
-            else {
-                applicant.setPhone(
-                        applicantDto.getPhone() == null ? "NA" : applicantDto.getPhone() == "" ? "NA" : applicantDto.getPhone()
-                );
-                applicant.setEmail(
-                        applicantDto.getEmail() == null ? "NA" : applicantDto.getEmail() == "" ? "NA" : applicantDto.getEmail()
-                );
-                applicant.setName(
-                        applicantDto.getName() == null ? "NA" : applicantDto.getName() == "" ? "NA" : applicantDto.getName()
-                );
-
-            }
         }
+        else {
+            applicant= ApplicantMapper.toApplicant(applicantDto);
+            applicant.setPhone(
+                    applicantDto.getPhone() == null ? "NA" : applicantDto.getPhone() == "" ? "NA" : applicantDto.getPhone()
+            );
+            applicant.setEmail(
+                    applicantDto.getEmail() == null ? "NA" : applicantDto.getEmail() == "" ? "NA" : applicantDto.getEmail()
+            );
+            applicant.setName(
+                    applicantDto.getName() == null ? "NA" : applicantDto.getName() == "" ? "NA" : applicantDto.getName()
+            );
+
+        }
+        applicant.setMarkStatus("pending");
         return ApplicantMapper.toApplicantDto(applicantRepository.save(applicant));
     }
 

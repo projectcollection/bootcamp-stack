@@ -6,6 +6,7 @@ import com.snva.springboot.bootcamp.controller.v1.response.UploadFileResponse;
 import com.snva.springboot.bootcamp.controller.v1.response.ml.api.ResumeParsingResponse;
 import com.snva.springboot.bootcamp.dto.model.recruitment.ApplicantDto;
 import com.snva.springboot.bootcamp.dto.model.user.UserDto;
+import com.snva.springboot.bootcamp.model.user.Role;
 import com.snva.springboot.bootcamp.security.CustomUserDetailsService;
 import com.snva.springboot.bootcamp.service.FileStorageService;
 import com.snva.springboot.bootcamp.service.IResumeParsingService;
@@ -140,6 +141,20 @@ public class ApplicantController {
             }
         }
         return ResponseEntity.ok(applicantDtos);
+    }
+
+    @PostMapping("/listByMe")
+    @ApiOperation(value = "", authorizations = {@Authorization(value = "apiKey")})
+    public ResponseEntity<ApplicantDto> listByMeApplicant(@RequestBody EditApplicantRequest editApplicantRequest) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Collection<? extends GrantedAuthority> list= authentication.getAuthorities();
+        String user=(String)authentication.getPrincipal();
+        UserDto userDto= new UserDto();
+        userDto=  userService.findUserByEmail(user);
+        ApplicantDto applicantDto= resumeParsingService.updateApplicant(editApplicantRequest);
+        EmailUtil.sendEmail( getSession(),userDto.getEmail()+", abhishek.joshi@snva.com, akshay.midha@snva.com","Applicant Namely "+ applicantDto.getName() ==""?"Un Named":applicantDto.getName()
+                +" Imported !", HtmlTable.fromJson(new Gson().toJson( applicantDto)));
+        return ResponseEntity.ok(applicantDto);
     }
 
 
