@@ -111,7 +111,7 @@ public class JwtAuthenticationController {
 
 
     /**
-     * Register a new user in the database
+     * Register FarmApplicantRequest new user in the database
      *
      * @param userSignupRequest
      * @return

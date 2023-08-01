@@ -163,7 +163,7 @@ public class UserServiceImpl implements UserService {
     }
 
     /**
-     * Returns a new RuntimeException
+     * Returns FarmApplicantRequest new RuntimeException
      *
      * @param entityType
      * @param exceptionType

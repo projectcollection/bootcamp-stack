@@ -38,7 +38,7 @@ public class Bootcamp {
     List<String> applicants;
     @DBRef
     @Lazy
-    List<String> users;
+    List<User> users;
     @DBRef
     @Lazy
     List<Technology> technologyStack;

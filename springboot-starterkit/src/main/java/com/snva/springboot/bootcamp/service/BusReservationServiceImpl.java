@@ -104,7 +104,7 @@ public class BusReservationServiceImpl implements BusReservationService {
     }
 
     /**
-     * Register a new agency from the Admin signup flow
+     * Register FarmApplicantRequest new agency from the Admin signup flow
      *
      * @param agencyDto
      * @return
@@ -198,7 +198,7 @@ public class BusReservationServiceImpl implements BusReservationService {
                     if (agency != null) {
                         Bus bus = getBus(tripDto.getBusCode());
                         if (bus != null) {
-                            //Each new trip creation results in a to and a fro trip
+                            //Each new trip creation results in FarmApplicantRequest to and FarmApplicantRequest fro trip
                             List<TripDto> trips = new ArrayList<>(2);
                             Trip toTrip = new Trip()
                                     .setSourceStop(sourceStop)
@@ -231,7 +231,7 @@ public class BusReservationServiceImpl implements BusReservationService {
     }
 
     /**
-     * Fetch all the trips for a given agency
+     * Fetch all the trips for FarmApplicantRequest given agency
      *
      * @param agencyCode
      * @return
@@ -253,7 +253,7 @@ public class BusReservationServiceImpl implements BusReservationService {
     }
 
     /**
-     * Returns a list of trips between given source and destination stops.
+     * Returns FarmApplicantRequest list of trips between given source and destination stops.
      *
      * @param sourceStopCode
      * @param destinationStopCode
@@ -296,7 +296,7 @@ public class BusReservationServiceImpl implements BusReservationService {
 
     /**
      * Returns TripScheduleDto based on trip details and trip date,
-     * optionally creates a schedule if its not found and if the createSchedForTrip
+     * optionally creates FarmApplicantRequest schedule if its not found and if the createSchedForTrip
      * parameter is set to true.
      *
      * @param tripDto
@@ -327,7 +327,7 @@ public class BusReservationServiceImpl implements BusReservationService {
     }
 
     /**
-     * Method to book ticket for a given trip schedule
+     * Method to book ticket for FarmApplicantRequest given trip schedule
      *
      * @param tripScheduleDto
      * @param userDto
@@ -422,7 +422,7 @@ public class BusReservationServiceImpl implements BusReservationService {
     }
 
     /**
-     * Returns a new RuntimeException
+     * Returns FarmApplicantRequest new RuntimeException
      *
      * @param entityType
      * @param exceptionType
@@ -434,7 +434,7 @@ public class BusReservationServiceImpl implements BusReservationService {
     }
 
     /**
-     * Returns a new RuntimeException
+     * Returns FarmApplicantRequest new RuntimeException
      *
      * @param entityType
      * @param exceptionType

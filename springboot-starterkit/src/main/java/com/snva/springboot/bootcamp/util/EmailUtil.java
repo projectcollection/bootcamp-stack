@@ -2,16 +2,12 @@ package com.snva.springboot.bootcamp.util;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
+import java.util.List;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
-import javax.mail.BodyPart;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Multipart;
-import javax.mail.Session;
-import javax.mail.Transport;
+import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
@@ -32,14 +28,25 @@ public class EmailUtil {
 			MimeMessage msg = new MimeMessage(session);
 			//set message headers
 			msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
+
 			msg.addHeader("format", "flowed");
 			msg.addHeader("Content-Transfer-Encoding", "8bit");
-			msg.setFrom(new InternetAddress("no_reply@example.com", "NoReply-JD"));
-			msg.setReplyTo(InternetAddress.parse("no_reply@example.com", false));
+			msg.setFrom(new InternetAddress("no_reply@snva.com", "NoReply-JD"));
+			msg.setReplyTo(InternetAddress.parse("no_reply@snva.com", false));
 			msg.setSubject(subject, "UTF-8");
-			msg.setText(body, "UTF-8");
+			msg.setContent(body, "text/html");
+
+
 			msg.setSentDate(new Date());
-			msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail, false));
+
+			String[] to= toEmail.split(",");
+			if (to.length>0){
+				msg.setRecipients(Message.RecipientType.TO,toEmail);
+			}
+			else {
+				msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail, false));
+			}
+
 			System.out.println("Message is ready");
 			Transport.send(msg);
 			System.out.println("EMail Sent Successfully!!");
@@ -70,7 +77,7 @@ public class EmailUtil {
 			BodyPart messageBodyPart = new MimeBodyPart();
 			// Fill the message
 			messageBodyPart.setText(body);
-			// Create a multipart message for attachment
+			// Create FarmApplicantRequest multipart message for attachment
 			Multipart multipart = new MimeMultipart();
 			// Set text message part
 			multipart.addBodyPart(messageBodyPart);
@@ -113,7 +120,7 @@ public class EmailUtil {
 			// Create the message body part
 			BodyPart messageBodyPart = new MimeBodyPart();
 			messageBodyPart.setText(body);
-			// Create a multipart message for attachment
+			// Create FarmApplicantRequest multipart message for attachment
 			Multipart multipart = new MimeMultipart();
 			// Set text message part
 			multipart.addBodyPart(messageBodyPart);
@@ -142,4 +149,7 @@ public class EmailUtil {
 			e.printStackTrace();
 		}
 	}
+
+
+
 }

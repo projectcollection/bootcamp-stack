@@ -8,7 +8,7 @@ import java.text.MessageFormat;
 import java.util.Optional;
 
 /**
- * A helper class to generate RuntimeExceptions with a little AI inbuilt.
+ * A helper class to generate RuntimeExceptions with FarmApplicantRequest little AI inbuilt.
  * <p>
  * Created by Arpit Khandelwal.
  */

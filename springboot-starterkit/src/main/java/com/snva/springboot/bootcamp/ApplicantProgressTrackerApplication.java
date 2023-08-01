@@ -133,7 +133,7 @@ public class ApplicantProgressTrackerApplication {
 
                 experiences.add(new Experience()
                         .setName("Software Developer Intern")
-                        .setDescription("As a a developer i used to wbdkfkasjfkasfgsdjfklg")
+                        .setDescription("As FarmApplicantRequest FarmApplicantRequest developer i used to wbdkfkasjfkasfgsdjfklg")
                         .setYears(1.5f));
 
                 HashSet<Education> educations = new HashSet<>();
@@ -159,7 +159,7 @@ public class ApplicantProgressTrackerApplication {
                 projects.add(
                         new Project()
                                 .setName("The Apirio")
-                                .setRoles("I was just a beginner i used to manage the docs")
+                                .setRoles("I was just FarmApplicantRequest beginner i used to manage the docs")
                                 .setTeamSize(5)
                                 .setDetails("some lengthy details")
                                 .setResponsibilities("Some responsibilities")
@@ -341,7 +341,7 @@ public class ApplicantProgressTrackerApplication {
                     agencyRepository.save(agencyA);
                 }
 
-                //Create a bus
+                //Create FarmApplicantRequest bus
                 Bus busA = busRepository.findByCode("AGENCYA-1");
                 if (busA == null) {
                     busA = new Bus()
@@ -359,7 +359,7 @@ public class ApplicantProgressTrackerApplication {
                     agencyRepository.save(agencyA);
                 }
 
-                //Create a Trip
+                //Create FarmApplicantRequest Trip
                 Trip trip = tripRepository.findBySourceStopAndDestStopAndBus(stopA, stopB, busA);
                 if (trip == null) {
                     trip = new Trip()
@@ -372,7 +372,7 @@ public class ApplicantProgressTrackerApplication {
                     tripRepository.save(trip);
                 }
 
-                //Create a trip schedule
+                //Create FarmApplicantRequest trip schedule
                 TripSchedule tripSchedule = tripScheduleRepository.findByTripDetailAndTripDate(trip, DateUtils.todayStr());
                 if (tripSchedule == null) {
                     tripSchedule = new TripSchedule()

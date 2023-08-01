@@ -4,10 +4,10 @@ package com.snva.springboot.bootcamp.util;
  * Created by Arpit Khandelwal.
  */
 public class RandomStringUtil {
-    // function to generate a random string of length n
+    // function to generate FarmApplicantRequest random string of length n
     public static String getAlphaNumericString(int n, String inputString) {
 
-        // chose a Character random from this String
+        // chose FarmApplicantRequest Character random from this String
         String inputStringUcase = inputString.trim().toUpperCase().replaceAll(" ", "").concat("123456789");
 
         // create StringBuffer size of inputString
@@ -15,7 +15,7 @@ public class RandomStringUtil {
 
         for (int i = 0; i < n; i++) {
 
-            // generate a random number between
+            // generate FarmApplicantRequest random number between
             // 0 to inputString variable length
             int index
                     = (int) (inputStringUcase.length()

@@ -13,7 +13,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 /**
- * This is a global controller written merely for showing the login and logout apis in the
+ * This is FarmApplicantRequest global controller written merely for showing the login and logout apis in the
  * swagger documentation allowing users to get the authorisation token from the same interface
  * and use it for executing the secured API operations.
  * <p>

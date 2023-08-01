@@ -103,17 +103,9 @@ public class ResumeServiceImpl implements  IResumeParsingService {
     public ApplicantDto updateApplicant(EditApplicantRequest editApplicantRequest) {
         Optional<Applicant> applicant= applicantRepository.findById(editApplicantRequest.getId());
         if (applicant.isPresent() ){
-            Applicant applicantToSave= applicant.get();
-            applicantToSave.setName(editApplicantRequest.getName());
-            applicantToSave.setResumeLinks(editApplicantRequest.getResumeLinks());
-            applicantToSave.setSkills(editApplicantRequest.getSkills());
-            applicantToSave.setUniversity(editApplicantRequest.getUniversity());
-            applicantToSave.setEmail(editApplicantRequest.getEmail());
-            applicantToSave.setDesignation(editApplicantRequest.getDesignation());
-            applicantToSave.setDegree(editApplicantRequest.getDegree());
-            applicantToSave.setTotalExp(editApplicantRequest.getTotalExp());
-            applicantToSave.setId(editApplicantRequest.getId());
-            applicantToSave.setPhone(applicantToSave.getPhone());
+            Applicant applicantToSave = ApplicantMapper.fromEditApplicanntRequestTpApplicant(editApplicantRequest);
+            //applicantToSave.setId(applicant.get().getId());
+            applicantToSave.setMarkStatus("farmed");
             return ApplicantMapper.toApplicantDto(applicantRepository.save(applicantToSave));
         }
         throw exception(STOP, ENTITY_NOT_FOUND, editApplicantRequest.getId());
@@ -130,7 +122,7 @@ public class ResumeServiceImpl implements  IResumeParsingService {
         return resumeParsingResponse;
     }
     /**
-     * Returns a new RuntimeException
+     * Returns FarmApplicantRequest new RuntimeException
      *
      * @param entityType
      * @param exceptionType

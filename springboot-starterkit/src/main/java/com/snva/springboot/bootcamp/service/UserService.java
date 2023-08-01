@@ -9,7 +9,7 @@ import java.util.List;
  */
 public interface UserService {
     /**
-     * Register a new user
+     * Register FarmApplicantRequest new user
      *
      * @param userDto
      * @return

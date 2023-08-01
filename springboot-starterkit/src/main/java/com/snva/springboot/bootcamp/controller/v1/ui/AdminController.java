@@ -71,7 +71,7 @@ public class AdminController {
     }
 
     /**
-     * Register a new user in the database
+     * Register FarmApplicantRequest new user in the database
      *
      * @param adminSignupRequest
      * @return
