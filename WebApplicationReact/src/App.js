@@ -9,6 +9,9 @@ import Product from "./recruitment/pages/Product";
 import NewProduct from "./recruitment/pages/NewProduct";
 import Topbar from "./recruitment/components/Topbar";
 import Sidebar from "./recruitment/components/Sidebar";
+import ResumeUpload from "./resume/Upload";
+import ResumeCompare from "./resume/Compare";
+import { SignUpAndSigninPage as RegistrationPage } from "./pages/RegistrationPage";
 
 
 function App() {
@@ -27,6 +30,9 @@ function App() {
         <Route path="/products" element={<ProductList />} />
         <Route path="/product/:productId" element={<Product />} />
         <Route path="/newproduct" element={<NewProduct />} />
+        <Route path="/resume-upload" element={<ResumeUpload />} />
+        <Route path="/resume-compare/:id" element={<ResumeCompare />} />
+        <Route path="/register" element={<RegistrationPage />} />
       </Routes>
     </div>
   </Router>

@@ -23,7 +23,7 @@ import Ide from "./ide/Ide";
 import TestSpinner from "./Component/Test";
 import UserList from "./recruitment/pages/UserList";
 import RecruiterHome from "./recruitment/pages/Home";
-import User from "./recruitment/pages/User";
+//import User from "./recruitment/pages/User";
 import Topbar from "./recruitment/components/Topbar";
 import Sidebar from "./recruitment/components/Sidebar";
 import App from "./App";
@@ -42,7 +42,7 @@ root.render(
     <RecoilPersist />
     <React.StrictMode>
       <App></App>
-      
+
     </React.StrictMode>
   </RecoilRoot>,
 );

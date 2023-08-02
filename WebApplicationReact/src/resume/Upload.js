@@ -1,17 +1,40 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import { getCurrentUser } from "../Utils/ApiUtil";
 import { baseurl } from "../include/Urlinclude.js";
 
 const Upload = ({ profile }) => {
-    const profileJson = JSON.parse(profile);
 
-    const jwtToken = profileJson.response;
-    const roles = profileJson.user.roles.map(role => role.role);
+    const [profileJson, setProfileJson] = useState();
 
-    const hasAccess = roles.some(role => {
+    useEffect(() => {
+        const fetchUser = async () => {
+            if (!profile) {
+                return await getCurrentUser();
+            } else {
+                return profile;
+            }
+        }
+
+        fetchUser().then((data) => {
+            setProfileJson(data);
+        }).catch((err) => {
+            console.log(err)
+        });
+    }, [])
+
+
+    const jwtToken = localStorage.getItem("accessToken");
+    if (!jwtToken) {
+        throw new Error("No access token set.");
+    }
+
+    const roles = profileJson?.roles?.map(role => role.role);
+
+    const hasAccess = roles?.some(role => {
         return ["RECRUITER", "SRRECRUITER", "RECRUITERADMIN"].includes(role)
     });
 
-    if (!hasAccess) {
+    if (!hasAccess && profileJson) {
         window.location.replace('/profile');
     }
 
@@ -39,8 +62,6 @@ const Upload = ({ profile }) => {
 
         const responses = await Promise.all(uploadPromises);
         const resJson = await Promise.all(responses.map(res => res.json()));
-
-        console.log(resJson);
 
         setParsedResumes(resJson);
         setIsUploading(false);
@@ -79,7 +100,7 @@ const Upload = ({ profile }) => {
         element.style.background = "#5780b3";
     }
 
-    if (!hasAccess) {
+    if (!hasAccess || !profileJson) {
         return <></>
     }
 
@@ -88,6 +109,7 @@ const Upload = ({ profile }) => {
             <div style={{
                 display: 'flex',
                 height: '100vh',
+                width: '100%',
                 flexDirection: 'column',
                 justifyContent: 'center',
                 alignItems: 'center'
@@ -103,6 +125,7 @@ const Upload = ({ profile }) => {
         <div style={{
             display: 'flex',
             minHeight: '100vh',
+            width: '100%',
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center'
@@ -144,48 +167,6 @@ const Upload = ({ profile }) => {
                     </button>
                     }
                 </div>
-
-                {parsedResumes.length > 0 &&
-                    <div
-                        style={{
-                            display: 'flex',
-                            flexDirection: 'column'
-                        }}
-                    >
-                        {parsedResumes.map((resume, i) => {
-                            const { applicantDto } = resume;
-                            console.log(applicantDto);
-
-                            return <div
-                                key={resume.fileName + i}
-                                style={{
-                                    padding: '5px'
-                                }}
-                            >
-                                <h3>
-                                    {resume.fileName}
-                                </h3>
-                                {Object.keys(applicantDto).map((key) => {
-                                    const value = applicantDto[key];
-                                    return <div key={key}>
-                                        <h5>
-                                            {key}:
-                                        </h5>
-                                        {Array.isArray(value) ?
-                                            <ul>
-                                                {value.map((val) => {
-                                                    return <li>{val}</li>
-                                                })}
-                                            </ul>
-                                            :
-                                            <span>{value}</span>
-                                        }
-                                    </div>
-                                })}
-                            </div>
-                        })}
-                    </div>
-                }
             </div>
         </div>
     </>

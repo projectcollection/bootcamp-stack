@@ -80,14 +80,14 @@ export function getCurrentUser() {
   console.log("Worked---------------->")
 
   return request(
-    
+
     {
-    
-    // url: AUTH_SERVICE + "/users/me",    
+
+    // url: AUTH_SERVICE + "/users/me",
     // method: "GET",
     url: AUTH_SERVICE + "/api/v1/user/apiprofile",
-    method: "POST",
-    headers: headers    
+    method: "GET",
+    headers: headers
   });
 }
 
@@ -106,14 +106,14 @@ export function getUsers() {
   console.log("Reques to users "+ {
     // url: AUTH_SERVICE + "/users/summaries",
     url: AUTH_SERVICE + "/api/v1/user/allUsers",
-    method: "POST",    
+    method: "POST",
     headers: headers
   });
 
   return request({
     // url: AUTH_SERVICE + "/users/summaries",
     url: AUTH_SERVICE + "/api/v1/user/allUsers",
-    method: "GET",    
+    method: "GET",
     headers: headers
   });
 }
