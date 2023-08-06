@@ -1,0 +1,666 @@
+{
+    "BootcampList": [
+        {
+            "id": "1",
+            "width":"",
+            "text": "Full Stack Reactive Java",
+            "image": "https://www.interviewbit.com/blog/wp-content/uploads/2021/06/Front-End-Developer-Skills-1024x543.jpg",
+            "maintainer": "SNVA Technologies",
+            "description": "This bootcamp aims to have professionals who can rapidly be trained on various king of implenertation",
+            "complexityLevel": "Advanced",
+            "practice": {
+                "problems": [
+                    {},
+                    {},
+                    {}
+                ]
+            },
+            "instructors": [
+                {
+                    "name": "Dheeraj Singh",
+                    "linked": ""
+                }
+            ],
+            "technologies": [
+                {
+                    "name": "Bootstrap",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "Jquery",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "HTML",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "CSS",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "ES-6",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "JavaScript",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "Java",
+                    "company": "",
+                    "version": "17"
+                },
+                {
+                    "name": "Spring IOC",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "Spring",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "Cloud",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "Docker",
+                    "company": "",
+                    "version": ""
+                }
+            ],
+            "sessions": [
+                {
+                    "start": "",
+                    "end": "",
+                    "day": "",
+                    "agenda": ""
+                },
+                {
+                    "start": "",
+                    "end": "",
+                    "day": "",
+                    "agenda": ""
+                },
+                {
+                    "start": "",
+                    "end": "",
+                    "day": "",
+                    "agenda": ""
+                },
+                {
+                    "start": "",
+                    "end": "",
+                    "day": "",
+                    "agenda": ""
+                },
+                {
+                    "start": "",
+                    "end": "",
+                    "day": "",
+                    "agenda": ""
+                }
+            ]
+        },
+        {
+            "id": "2",
+            "image": "https://www.interviewbit.com/blog/wp-content/uploads/2021/06/Front-End-Developer-Skills-1024x543.jpg",
+            "text": "Full Stack Reactive Python",
+            "maintainer": "SNVA Technologies",
+            "description": "This bootcamp aims to have professionals who can rapidly be trained on various king of implenertation",
+            "complexityLevel": "Advanced",
+            "practice": {
+                "problems": [
+                    {},
+                    {},
+                    {}
+                ]
+            },
+            "instructors": [
+                {
+                    "name": "Dheeraj Singh",
+                    "linked": ""
+                }
+            ],
+            "technologies": [
+                {
+                    "name": "Bootstrap",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "Jquery",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "HTML",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "CSS",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "ES-6",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "JavaScript",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "Python",
+                    "company": "",
+                    "version": "3.8"
+                },
+                {
+                    "name": "Django",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "Flask",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "Cloud",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "Docker",
+                    "company": "",
+                    "version": ""
+                }
+            ],
+            "sessions": [
+                {
+                    "start": "",
+                    "end": "",
+                    "day": "",
+                    "agenda": ""
+                },
+                {
+                    "start": "",
+                    "end": "",
+                    "day": "",
+                    "agenda": ""
+                },
+                {
+                    "start": "",
+                    "end": "",
+                    "day": "",
+                    "agenda": ""
+                },
+                {
+                    "start": "",
+                    "end": "",
+                    "day": "",
+                    "agenda": ""
+                },
+                {
+                    "start": "",
+                    "end": "",
+                    "day": "",
+                    "agenda": ""
+                }
+            ]
+        },
+        {
+            "id": "3",            
+            "image": "https://www.interviewbit.com/blog/wp-content/uploads/2021/06/Front-End-Developer-Skills-1024x543.jpg",
+            "text": "Full Stack Reactive JavaScript",
+            "maintainer": "SNVA Technologies",
+            "description": "This bootcamp aims to have professionals who can rapidly be trained on various king of implenertation",
+            "complexityLevel": "Advanced",
+            "practice": {
+                "problems": [
+                    {},
+                    {},
+                    {}
+                ]
+            },
+            "instructors": [
+                {
+                    "name": "Dheeraj Singh",
+                    "linked": ""
+                }
+            ],
+            "technologies": [
+                {
+                    "name": "Bootstrap",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "Jquery",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "HTML",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "CSS",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "ES-6",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "JavaScript",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "Python",
+                    "company": "",
+                    "version": "3.8"
+                },
+                {
+                    "name": "Django",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "Flask",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "Cloud",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "Docker",
+                    "company": "",
+                    "version": ""
+                }
+            ],
+            "sessions": [
+                {
+                    "start": "",
+                    "end": "",
+                    "day": "",
+                    "agenda": ""
+                },
+                {
+                    "start": "",
+                    "end": "",
+                    "day": "",
+                    "agenda": ""
+                },
+                {
+                    "start": "",
+                    "end": "",
+                    "day": "",
+                    "agenda": ""
+                },
+                {
+                    "start": "",
+                    "end": "",
+                    "day": "",
+                    "agenda": ""
+                },
+                {
+                    "start": "",
+                    "end": "",
+                    "day": "",
+                    "agenda": ""
+                }
+            ]
+        },
+        {
+            "id": "4",            
+            "image": "https://www.interviewbit.com/blog/wp-content/uploads/2021/06/Front-End-Developer-Skills-1024x543.jpg",
+            "text": "Full Stack Reactive HTML5",
+            "maintainer": "SNVA Technologies",
+            "description": "This bootcamp aims to have professionals who can rapidly be trained on various king of implenertation",
+            "complexityLevel": "Advanced",
+            "practice": {
+                "problems": [
+                    {},
+                    {},
+                    {}
+                ]
+            },
+            "instructors": [
+                {
+                    "name": "Dheeraj Singh",
+                    "linked": ""
+                }
+            ],
+            "technologies": [
+                {
+                    "name": "Bootstrap",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "Jquery",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "HTML",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "CSS",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "ES-6",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "JavaScript",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "Python",
+                    "company": "",
+                    "version": "3.8"
+                },
+                {
+                    "name": "Django",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "Flask",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "Cloud",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "Docker",
+                    "company": "",
+                    "version": ""
+                }
+            ],
+            "sessions": [
+                {
+                    "start": "",
+                    "end": "",
+                    "day": "",
+                    "agenda": ""
+                },
+                {
+                    "start": "",
+                    "end": "",
+                    "day": "",
+                    "agenda": ""
+                },
+                {
+                    "start": "",
+                    "end": "",
+                    "day": "",
+                    "agenda": ""
+                },
+                {
+                    "start": "",
+                    "end": "",
+                    "day": "",
+                    "agenda": ""
+                },
+                {
+                    "start": "",
+                    "end": "",
+                    "day": "",
+                    "agenda": ""
+                }
+            ]
+        },
+        {
+            "id": "5",            
+            "image": "https://www.interviewbit.com/blog/wp-content/uploads/2021/06/Front-End-Developer-Skills-1024x543.jpg",
+            "text": "Full Stack Reactive CSS",
+            "maintainer": "SNVA Technologies",
+            "description": "This bootcamp aims to have professionals who can rapidly be trained on various king of implenertation",
+            "complexityLevel": "Advanced",
+            "practice": {
+                "problems": [
+                    {},
+                    {},
+                    {}
+                ]
+            },
+            "instructors": [
+                {
+                    "name": "Dheeraj Singh",
+                    "linked": ""
+                }
+            ],
+            "technologies": [
+                {
+                    "name": "Bootstrap",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "Jquery",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "HTML",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "CSS",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "ES-6",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "JavaScript",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "Python",
+                    "company": "",
+                    "version": "3.8"
+                },
+                {
+                    "name": "Django",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "Flask",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "Cloud",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "Docker",
+                    "company": "",
+                    "version": ""
+                }
+            ],
+            "sessions": [
+                {
+                    "start": "",
+                    "end": "",
+                    "day": "",
+                    "agenda": ""
+                },
+                {
+                    "start": "",
+                    "end": "",
+                    "day": "",
+                    "agenda": ""
+                },
+                {
+                    "start": "",
+                    "end": "",
+                    "day": "",
+                    "agenda": ""
+                },
+                {
+                    "start": "",
+                    "end": "",
+                    "day": "",
+                    "agenda": ""
+                },
+                {
+                    "start": "",
+                    "end": "",
+                    "day": "",
+                    "agenda": ""
+                }
+            ]
+        },
+        {
+            "id": "6",            
+            "image": "https://www.interviewbit.com/blog/wp-content/uploads/2021/06/Front-End-Developer-Skills-1024x543.jpg",
+            "text": "Full Stack Reactive React.JS",
+            "maintainer": "SNVA Technologies",
+            "description": "This bootcamp aims to have professionals who can rapidly be trained on various king of implenertation",
+            "complexityLevel": "Advanced",
+            "practice": {
+                "problems": [
+                    {},
+                    {},
+                    {}
+                ]
+            },
+            "instructors": [
+                {
+                    "name": "Dheeraj Singh",
+                    "linked": ""
+                }
+            ],
+            "technologies": [
+                {
+                    "name": "Bootstrap",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "Jquery",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "HTML",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "CSS",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "ES-6",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "JavaScript",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "Python",
+                    "company": "",
+                    "version": "3.8"
+                },
+                {
+                    "name": "Django",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "Flask",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "Cloud",
+                    "company": "",
+                    "version": ""
+                },
+                {
+                    "name": "Docker",
+                    "company": "",
+                    "version": ""
+                }
+            ],
+            "sessions": [
+                {
+                    "start": "",
+                    "end": "",
+                    "day": "",
+                    "agenda": ""
+                },
+                {
+                    "start": "",
+                    "end": "",
+                    "day": "",
+                    "agenda": ""
+                },
+                {
+                    "start": "",
+                    "end": "",
+                    "day": "",
+                    "agenda": ""
+                },
+                {
+                    "start": "",
+                    "end": "",
+                    "day": "",
+                    "agenda": ""
+                },
+                {
+                    "start": "",
+                    "end": "",
+                    "day": "",
+                    "agenda": ""
+                }
+            ]
+        }
+        
+    ]
+}

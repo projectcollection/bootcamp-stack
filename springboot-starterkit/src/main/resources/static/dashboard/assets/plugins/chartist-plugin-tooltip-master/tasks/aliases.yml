@@ -1,7 +1,7 @@
 # Grunt Commands
 # ==============
 #
-# Use `grunt` in the root directory to select and run a specific task.
+# Use `grunt` in the root directory to select and run FarmApplicantRequest specific task.
 
 default:
   - 'test'

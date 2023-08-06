@@ -1,0 +1,9 @@
+# server.por
+server:
+  port: 8081
+spring:
+  data:
+    mongodb:
+      uri: mongodb+srv://mick2023:DUTAw58m3w4YycOO@cluster0.i6rqc9n.mongodb.net/chat-server?retryWrites=true&w=majority
+      # database: chat_service
+      # port: 27018

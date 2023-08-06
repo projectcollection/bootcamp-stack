@@ -1,18 +1,26 @@
-version: '3.5'
+version: "3.5"
 services:
+  pyapi:
+    image: latest-py-resume:latest
+    build:
+        context: ./ResumeParsingApi
+        dockerfile: Dockerfile
+    container_name: py-resume
+    restart: on-failure
+    ports:
+      - "5000:5000"
   api:
     image: bootcamp-api:latest
+    build:
+        context: ./springboot-starterkit
+        dockerfile: Dockerfile
     container_name: bootcamp-api-container
     restart: on-failure
+    environment:
+      - RESUME_UPLOAD_URL=http://pyapi:5000/api/v1/file-upload
     ports:
       - "8077:8077"
-  web: 
-    image: bootcamp-frontend:latest
-    container_name: bootcamp-frontend-container
-    restart: on-failure
     depends_on:
-      - api
-    ports:
-      - "80:80"
+      - pyapi
 
-  
+
